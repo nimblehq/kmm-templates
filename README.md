@@ -1,12 +1,26 @@
-# Git Repository Template
+# KMM Templates
 
-Project repository template to set up all public projects at [Nimble](https://nimblehq.co/)
+Kotlin Multiplatform project repository template to set up all public projects at [Nimble](https://nimblehq.co/)
 
-## Usage
+## Prerequisite
 
-Clone the repository
+- Java 17
+- Android SDK
+- Xcode
 
-`git clone git@github.com:nimblehq/git-template.git`
+## Getting Started
+
+### Setup
+
+TODO
+
+### Run
+
+TODO
+
+### Test
+
+TODO
 
 ## License
 
