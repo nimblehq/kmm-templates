@@ -1,4 +1,4 @@
-https://github.com/nimblehq/flutter-templates/milestone/?
+https://github.com/nimblehq/kmm-templates/milestone/?
 
 ## Features
 
