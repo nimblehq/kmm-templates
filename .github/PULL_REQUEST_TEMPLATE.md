@@ -1,3 +1,6 @@
+Note: for a release PR, append this parameter `?template=release_template.md` to the current URL to apply the release PR
+template.
+
 - Close #
 
 ## What happened 👀
@@ -11,3 +14,5 @@ Describe in detail why this solution is the most appropriate, which solution you
 ## Proof Of Work 📹
 
 Show us the implementation: screenshots, GIFs, etc.
+
+<img src="URL_GOES_HERE" width=200 />
