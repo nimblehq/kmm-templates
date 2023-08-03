@@ -45,3 +45,21 @@ captures
 .cxx
 local.properties
 xcuserdata
+
+# iOS
+ios/Pods/
+ios/fastlane/README.md
+ios/fastlane/report.xml
+ios/fastlane/Preview.html
+ios/fastlane/screenshots/**/*.png
+ios/fastlane/test_output
+ios/fastlane/xcov_output
+ios/vendor
+ios/DerivedData
+ios/Failed_Screenshots
+
+# iOS - Sourcery
+*.generated.swift
+
+# iOS - Tuist
+.tuist-generated
