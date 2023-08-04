@@ -1,7 +1,11 @@
+import org.jetbrains.kotlin.konan.properties.loadProperties
+
 plugins {
     id("com.android.application")
     kotlin("android")
 }
+
+val keystoreProperties = loadProperties("android/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -12,6 +16,22 @@ android {
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
+    }
+    signingConfigs {
+        create("release") {
+            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD")
+            // Remember to edit signing.properties to have the correct info for release build.
+            storeFile = file("config/release.keystore")
+            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD")
+            keyAlias = keystoreProperties.getProperty("KEY_ALIAS")
+        }
+
+        getByName("debug") {
+            storeFile = file("config/debug.keystore")
+            storePassword = "jsglOe09kgjslDgpEg"
+            keyAlias = "kmm-templates"
+            keyPassword = "jsglOe09kgjslDgpEg"
+        }
     }
     buildFeatures {
         compose = true
@@ -26,8 +46,24 @@ android {
     }
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isDebuggable = false
+            isShrinkResources = true
+            signingConfig = signingConfigs["release"]
         }
+
+        getByName("debug") {
+            isMinifyEnabled = false
+            signingConfig = signingConfigs["debug"]
+        }
+    }
+    flavorDimensions += "version"
+    productFlavors {
+        create("staging") {
+            applicationIdSuffix = ".staging"
+        }
+
+        create("production") {}
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
