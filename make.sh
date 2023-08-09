@@ -87,12 +87,27 @@ if [ -z "$project_name" ] ; then
     read -p "PROJECT NAME (i.e. NewProject):" project_name
 fi
 
+if [[ -z "$minimum_ios_version" ]]; then
+    read -p "iOS Minimum Version (i.e. 14.0):" minimum_ios_version
+fi
+
+# Enforce minimum version
+version_regex='^[0-9_]+(\.[0-9]+)+$'
+if ! [[ $minimum_ios_version =~ $version_regex ]]; then
+    echo "=> Minimum version incorrect. Reverting to default version."
+    minimum_ios_version="14.0"
+fi
+
 cd ios
 
+echo "=> Removing unnecessary files and folders"
+rm -rf {PROJECT_NAME}/sources/data
+
 # Because iOS-template is a submodule of the KKM-template, there is no .git directory.
-sed -i.bak "/rm -f .git\/index/d" make.sh
+sed -i.bak "/rm -f .git*/d" make.sh
+
 sed -i.bak "s/minimum_version=\"\"/minimum_version=${minimum_ios_version}/g" make.sh
-sed -i.bak "s/read -p \"iOS Minimum Version (i.e. 14.0):\" minimum_version/echo \"=> asdf\"/g" make.sh
+sed -i.bak "s/read -p \"iOS Minimum Version (i.e. 14.0):\" minimum_version/echo \"=> Minimum iOS version: $minimum_ios_version\"/g" make.sh
 
 sed -i.bak "/platform :ios*/d" podfile
 sed -i.bak "1i\\"$'\n'"\
