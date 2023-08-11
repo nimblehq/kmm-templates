@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
+    kotlin(Plugins.MULTIPLATFORM)
+    kotlin(Plugins.COCOAPODS)
+    id(Plugins.ANDROID_LIBRARY)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -11,7 +11,7 @@ kotlin {
     android {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = Versions.JVM_TARGET
             }
         }
     }
@@ -46,8 +46,8 @@ kotlin {
 
 android {
     namespace = "co.nimblehq.kmm.template"
-    compileSdk = 33
+    compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
-        minSdk = 24
+        minSdk = Versions.ANDROID_MIN_SDK_VERSION
     }
 }

@@ -1,9 +1,9 @@
 plugins {
     //trick: for the same plugin versions in all sub-modules
-    id("com.android.application").version("8.0.2").apply(false)
-    id("com.android.library").version("8.0.2").apply(false)
-    kotlin("android").version("1.8.21").apply(false)
-    kotlin("multiplatform").version("1.8.21").apply(false)
+    id(Plugins.ANDROID_APPLICATION).version(Versions.GRADLE).apply(false)
+    id(Plugins.ANDROID_LIBRARY).version(Versions.GRADLE).apply(false)
+    kotlin(Plugins.ANDROID).version(Versions.KOTLIN).apply(false)
+    kotlin(Plugins.MULTIPLATFORM).version(Versions.KOTLIN).apply(false)
 }
 
 tasks.register("clean", Delete::class) {
