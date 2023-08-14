@@ -1,6 +1,7 @@
 #!/bin/sh
 set -e
 
+# =====GENERATE IOS MODULE=====
 # Script inspired by https://gist.github.com/szeidner/613fe4652fc86f083cefa21879d5522b
 
 readonly PROGNAME=$(basename $0)
@@ -110,3 +111,10 @@ line_number=$(grep -n -i "# Development" podfile | cut -f1 -d:)
 sed -i.bak "$(($line_number + 1))i\\"$'\n'"\
   pod 'shared', :path => '../shared'\\
 " podfile
+
+# =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
+# TODO: Fully generate the KMM project later
+#
+# This is the initial script to generate the KMM project:
+# - Clone all project files to the "sample" directory
+rsync -av --exclude '.git' --exclude 'sample' ./ sample/
