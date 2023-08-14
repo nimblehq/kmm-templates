@@ -31,6 +31,7 @@ EOF
 bundle_id_production=""
 bundle_id_staging=""
 project_name=""
+minimum_ios_version=""
 
 while [ $# -gt 0 ] ; do
     case "$1" in
@@ -47,6 +48,10 @@ while [ $# -gt 0 ] ; do
         ;;
     -n|--project-name)
         project_name="$2"
+        shift
+        ;;
+    -iv|--ios-version)
+        minimum_ios_version="$2"
         shift
         ;;
     -*)
@@ -85,6 +90,14 @@ cd ios
 
 # Because iOS-template is a submodule of the KKM-template, there is no .git directory.
 sed -i.bak "/rm -f .git\/index/d" make.sh
+sed -i.bak "s/minimum_version=\"\"/minimum_version=${minimum_ios_version}/g" make.sh
+sed -i.bak "s/read -p \"iOS Minimum Version (i.e. 14.0):\" minimum_version/echo \"=> asdf\"/g" make.sh
+
+sed -i.bak "/platform :ios*/d" podfile
+sed -i.bak "1i\\"$'\n'"\
+platform :ios, '${minimum_ios_version}'\\
+" podfile
+
 
 echo "=> Starting generate iOS project with iOS-template"
 
