@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
+    kotlin(Plugins.MULTIPLATFORM)
+    kotlin(Plugins.COCOAPODS)
+    id(Plugins.ANDROID_LIBRARY)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -33,12 +33,19 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+                // Koin
+                implementation(Dependencies.Koin.CORE)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(Dependencies.Koin.ANDROID)
+                implementation(Dependencies.Koin.COMPOSE)
             }
         }
     }

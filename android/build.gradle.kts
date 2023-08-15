@@ -1,24 +1,22 @@
-import org.jetbrains.kotlin.konan.properties.loadProperties
-
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id(Plugins.ANDROID_APPLICATION)
+    kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = loadProperties("android/signing.properties")
+val keystoreProperties =  rootDir.loadGradleProperties("android/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
-    compileSdk = 33
+    compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
         applicationId = "co.nimblehq.kmm.template.android"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.ANDROID_MIN_SDK_VERSION
+        targetSdk = Versions.ANDROID_TARGET_SDK_VERSION
+        versionCode = Versions.ANDROID_VERSION_CODE
+        versionName = Versions.ANDROID_VERSION_NAME
     }
     signingConfigs {
-        create("release") {
+        create(BuildTypes.RELEASE) {
             storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD")
             // Remember to edit signing.properties to have the correct info for release build.
             storeFile = file("config/release.keystore")
@@ -26,7 +24,7 @@ android {
             keyAlias = keystoreProperties.getProperty("KEY_ALIAS")
         }
 
-        getByName("debug") {
+        getByName(BuildTypes.DEBUG) {
             storeFile = file("config/debug.keystore")
             storePassword = "jsglOe09kgjslDgpEg"
             keyAlias = "kmm-templates"
@@ -37,7 +35,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
     }
     packaging {
         resources {
@@ -45,41 +43,51 @@ android {
         }
     }
     buildTypes {
-        getByName("release") {
+        getByName(BuildTypes.RELEASE) {
             isMinifyEnabled = true
             isDebuggable = false
             isShrinkResources = true
-            signingConfig = signingConfigs["release"]
+            signingConfig = signingConfigs[BuildTypes.RELEASE]
         }
 
-        getByName("debug") {
+        getByName(BuildTypes.DEBUG) {
             isMinifyEnabled = false
-            signingConfig = signingConfigs["debug"]
+            signingConfig = signingConfigs[BuildTypes.DEBUG]
         }
     }
-    flavorDimensions += "version"
+    flavorDimensions += Flavors.DIMENSION_VERSION
     productFlavors {
-        create("staging") {
+        create(Flavors.STAGING) {
             applicationIdSuffix = ".staging"
         }
 
-        create("production") {}
+        create(Flavors.PRODUCTION) {}
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.JVM_TARGET
     }
 }
 
 dependencies {
-    implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation("androidx.compose.foundation:foundation:1.4.3")
-    implementation("androidx.compose.material:material:1.4.3")
-    implementation("androidx.activity:activity-compose:1.7.1")
+    implementation(project(Modules.SHARED))
+
+    with(Dependencies.Compose) {
+        implementation(UI)
+        implementation(UI_TOOLING)
+        implementation(UI_TOOLING_PREVIEW)
+        implementation(FOUNDATION)
+        implementation(MATERIAL)
+    }
+
+    with(Dependencies.Koin) {
+        implementation(CORE)
+        implementation(ANDROID)
+        implementation(COMPOSE)
+    }
+
+    implementation(Dependencies.AndroidX.ACTIVITY_COMPOSE)
 }
