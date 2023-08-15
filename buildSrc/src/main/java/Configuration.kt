@@ -18,7 +18,11 @@ object Plugins {
     const val ANDROID_APPLICATION = "com.android.application"
     const val ANDROID_LIBRARY = "com.android.library"
 
+    const val BUILD_KONFIG = "com.codingfeline.buildkonfig"
+
     const val IOS_COCOAPODS = "native.cocoapods"
+
+    const val KSP = "com.google.devtools.ksp"
 
     const val MULTIPLATFORM = "multiplatform"
 }

@@ -3,7 +3,7 @@ plugins {
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties =  rootDir.loadGradleProperties("android/signing.properties")
+val keystoreProperties = rootDir.loadGradleProperties("android/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -64,8 +64,8 @@ android {
         create(Flavors.PRODUCTION) {}
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = Versions.JVM_TARGET
