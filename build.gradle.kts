@@ -12,11 +12,12 @@ detekt {
     config.setFrom("detekt.yml")
 
     source.setFrom(
-        "android/src/main/java",
+        "android/src",
         "shared/src/androidMain/kotlin",
         "shared/src/androidUnitTest/kotlin",
         "shared/src/commonMain/kotlin",
         "shared/src/commonTest/kotlin",
+        "shared/src/iosMain/kotlin",
     )
     parallel = false
 
@@ -25,22 +26,15 @@ detekt {
 
     debug = false
     ignoreFailures = false
-
-}
-
-dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.23.0")
+    ignoredBuildTypes = listOf("release")
+    ignoredFlavors = listOf("production")
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
     jvmTarget = JavaVersion.VERSION_11.toString()
     reports {
-        xml {
-            outputLocation.set(file("build/reports/detekt/detekt.xml"))
-        }
-        html {
-            outputLocation.set(file("build/reports/detekt/detekt.html"))
-        }
+        html.required.set(true)
+        xml.required.set(true)
     }
 }
 
