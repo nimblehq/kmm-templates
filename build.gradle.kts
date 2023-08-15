@@ -3,7 +3,6 @@ plugins {
     id("com.android.application").version("8.0.2").apply(false)
     id("com.android.library").version("8.0.2").apply(false)
     id("io.gitlab.arturbosch.detekt").version("1.23.0")
-    id("org.jetbrains.kotlinx.kover").version("0.7.3")
     kotlin("android").version("1.8.21").apply(false)
     kotlin("multiplatform").version("1.8.21").apply(false)
 }
@@ -29,23 +28,6 @@ detekt {
     ignoreFailures = false
     ignoredBuildTypes = listOf("release")
     ignoredFlavors = listOf("production")
-}
-
-koverReport {
-    val excludedFiles = listOf(
-        "*.BuildConfig.*",
-        "*.BuildConfig",
-        // Jetpack Compose
-        "*.ComposableSingletons*",
-        "*.*\$*Preview\$*",
-        "*.ui.preview.*",
-    )
-
-    filters {
-        excludes {
-            classes(excludedFiles)
-        }
-    }
 }
 
 tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {

@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("org.jetbrains.kotlinx.kover").version("0.7.3")
     kotlin("android")
 }
 
@@ -35,6 +36,29 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+}
+
+koverReport {
+    val excludedFiles = listOf(
+        "io.mockative.*",
+        "*.BuildConfig",
+        "*.BuildKonfig",                        // BuildKonfig generated
+        "*.ComposableSingletons*",              // Jetpack Compose generated
+        "*.*\$*Preview\$*",                     // Jetpack Compose Preview functions
+        "*.di.*",                               // Koin
+        "*.ui.preview.*",                       // Jetpack Compose Preview providers
+        "*.*Test",                              // Test files
+        "*.*Test*",                             // Test cases
+        "*.*Mock",                              // mockative @Mock generated
+        "*.test.*",                             // Test util package
+        "*.*\$\$serializer",                    // Kotlinx serializer
+    )
+
+    filters {
+        excludes {
+            classes(excludedFiles)
+        }
     }
 }
 

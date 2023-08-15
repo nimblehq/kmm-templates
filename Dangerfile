@@ -14,7 +14,7 @@ warn("Please add labels to this PR") if github.pr_labels.empty?
 commit_lint.check warn: :all, disable: [:subject_length]
 
 # Detekt output check
-detekt_dir = "**/build/reports/detekt/detekt.xml"
+detekt_dir = "build/reports/detekt/detekt.xml"
 Dir[detekt_dir].each do |file_name|
   kotlin_detekt.skip_gradle_task = true
   kotlin_detekt.report_file = file_name
@@ -22,7 +22,7 @@ Dir[detekt_dir].each do |file_name|
 end
 
 # Android Lint output check
-lint_dir = "**/**/build/reports/lint/lint-result.xml"
+lint_dir = "**/build/reports/lint/lint-result.xml"
 Dir[lint_dir].each do |file_name|
   android_lint.skip_gradle_task = true
   android_lint.report_file = file_name
@@ -31,7 +31,7 @@ end
   
 # Show Danger test coverage report from Kover for templates
 # Report coverage of modified files, warn if total project coverage is under 80%
-# or if any modified file's coverage is under 90%
+# or if any modified file's coverage is under 95%
 kover_file = "build/reports/kover/report.xml"
 markdown "## Kover report for KMM Templates:"
 shroud.reportKover "Unit Tests", kover_file, 80, 95, false
