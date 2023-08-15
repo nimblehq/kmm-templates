@@ -19,19 +19,20 @@ jobs:
     # before this "generate_sample_project" job will run
     needs: test
     name: Generate the sample project
-    runs-on: ubuntu-latest
+    runs-on: macOS-12
     timeout-minutes: 30
     steps:
       - name: Check out
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
+          submodules: 'recursive'
 
       - name: Remove the old sample project
         run: rm -rf sample
 
       - name: Generate the new sample project
-        run: ./make.sh
+        run: ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample
 
       - id: changes
         name: Check for changes in the sample project
