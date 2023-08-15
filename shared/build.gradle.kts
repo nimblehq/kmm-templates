@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
     kotlin(Plugins.MULTIPLATFORM)
-    kotlin(Plugins.COCOAPODS)
+    kotlin(Plugins.IOS_COCOAPODS)
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOVER)
 }

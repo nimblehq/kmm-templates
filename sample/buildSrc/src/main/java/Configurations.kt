@@ -20,7 +20,7 @@ object Plugins {
 
     const val BUILD_KONFIG = "com.codingfeline.buildkonfig"
 
-    const val COCOAPODS = "native.cocoapods"
+    const val IOS_COCOAPODS = "native.cocoapods"
 
     const val DETEKT = "io.gitlab.arturbosch.detekt"
 
