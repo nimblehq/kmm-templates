@@ -1,32 +1,60 @@
 plugins {
-    id("com.android.application")
-    kotlin("android")
+    id(Plugins.ANDROID_APPLICATION)
+    kotlin(Plugins.ANDROID)
 }
+
+val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
-    compileSdk = 33
+    compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
         applicationId = "co.nimblehq.kmm.template.android"
-        minSdk = 24
-        targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = Versions.ANDROID_MIN_SDK_VERSION
+        targetSdk = Versions.ANDROID_TARGET_SDK_VERSION
+        versionCode = Versions.ANDROID_VERSION_CODE
+        versionName = Versions.ANDROID_VERSION_NAME
     }
     buildFeatures {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
     }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    signingConfigs {
+        create(BuildTypes.RELEASE) {
+            // Remember to edit signing.properties to have the correct info for release build.
+            storeFile = file("../config/release.keystore")
+            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD") as String
+            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD") as String
+            keyAlias = keystoreProperties.getProperty("KEY_ALIAS") as String
+        }
+
+        getByName(BuildTypes.DEBUG) {
+            storeFile = file("../config/debug.keystore")
+            storePassword = "oQ4mL1jY2uX7wD8q"
+            keyAlias = "debug-key-alias"
+            keyPassword = "oQ4mL1jY2uX7wD8q"
+        }
+    }
     buildTypes {
-        getByName("release") {
+        getByName(BuildTypes.RELEASE) {
+            isMinifyEnabled = true
+            isDebuggable = false
+            isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs[BuildTypes.RELEASE]
+        }
+
+        getByName(BuildTypes.DEBUG) {
+            // For quickly testing build with proguard, enable this
             isMinifyEnabled = false
+            signingConfig = signingConfigs[BuildTypes.DEBUG]
         }
     }
     compileOptions {
@@ -34,16 +62,31 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = Versions.JVM_TARGET
     }
 }
 
 dependencies {
-    implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling:1.4.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.4.3")
-    implementation("androidx.compose.foundation:foundation:1.4.3")
-    implementation("androidx.compose.material:material:1.4.3")
-    implementation("androidx.activity:activity-compose:1.7.1")
+    implementation(project(Modules.SHARED))
+
+    with(Dependencies.AndroidX) {
+        implementation(ACTIVITY_COMPOSE)
+    }
+
+    with(Dependencies.Compose) {
+        implementation(UI)
+        implementation(UI_GRAPHICS)
+        implementation(MATERIAL)
+        implementation(NAVIGATION)
+        implementation(UI_TOOLING)
+    }
+
+    with(Dependencies.Log) {
+        implementation(TIMBER)
+    }
+
+    with(Dependencies.Test) {
+        implementation(JUNIT)
+        implementation(COROUTINES)
+    }
 }
