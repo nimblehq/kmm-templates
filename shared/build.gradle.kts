@@ -1,6 +1,6 @@
 plugins {
     kotlin(Plugins.MULTIPLATFORM)
-    kotlin(Plugins.COCOAPODS)
+    kotlin(Plugins.IOS_COCOAPODS)
     id(Plugins.ANDROID_LIBRARY)
 }
 
