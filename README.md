@@ -2,7 +2,13 @@
 
 Kotlin Multiplatform project repository template to set up all projects at [Nimble](https://nimblehq.co/)
 
-## Prerequisite
+## Features
+
+TODO
+
+## Use the template
+
+### Prerequisites
 
 - [JDK](https://www.oracle.com/java/technologies/javase-downloads.html): Java 17
 - [Android Studio](https://developer.android.com/studio) with [Kotlin Multiplatform Mobile plugin](https://kotlinlang.org/docs/multiplatform-mobile-plugin-releases.html)
@@ -11,19 +17,21 @@ Kotlin Multiplatform project repository template to set up all projects at [Nimb
 
 Please check [this](https://kotlinlang.org/docs/multiplatform-mobile-setup.html#install-the-necessary-tools) out for more details.
 
-## Getting Started
+### Set up a new project
 
-### Setup
+Follow these steps to set up a new project from the template:
 
-TODO
+1. Clone or download this repository to your local machine.
 
-### Run
+2. Fetch all git sub-modules for the first time.
 
-TODO
+    `$ git submodule update --init --recursive`
 
-### Test
+3. Generate the new project by running the following command.
 
-TODO
+    `$ ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0`
+
+The generated project is at `/sample` folder and ready to build, run and test 🎉
 
 ## License
 
