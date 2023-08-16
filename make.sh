@@ -118,4 +118,9 @@ sed -i.bak "$(($line_number + 1))i\\"$'\n'"\
 # This is the initial script to generate the KMM project:
 # - Clone all project files to the "sample" directory
 cd ..
-rsync -av --exclude '.git' --exclude 'sample' ./ sample/
+rsync -av \
+    --exclude '.git' \
+    --exclude '.gitmodules' \
+    --exclude 'make.sh' \
+    --exclude 'sample' \
+    ./ sample/
