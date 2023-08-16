@@ -32,7 +32,7 @@ jobs:
         run: rm -rf sample
 
       - name: Generate the new sample project
-        run: ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample
+        run: ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0
 
       - id: changes
         name: Check for changes in the sample project
