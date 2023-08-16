@@ -1,6 +1,6 @@
 # KMM Templates
 
-Kotlin Multiplatform project repository template to set up all projects at [Nimble](https://nimblehq.co/)
+Kotlin Multiplatform Mobile (KMM) template to set up all KMM projects at [Nimble](https://nimblehq.co/)
 
 ## Features
 
