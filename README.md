@@ -12,8 +12,7 @@ TODO
 
 - [JDK](https://www.oracle.com/java/technologies/javase-downloads.html): Java 17
 - [Android Studio](https://developer.android.com/studio) with [Kotlin Multiplatform Mobile plugin](https://kotlinlang.org/docs/multiplatform-mobile-plugin-releases.html)
-- [Xcode](https://apps.apple.com/us/app/xcode/id497799835)
-- [Tuist](https://github.com/tuist/tuist)
+- [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 13.3+
 
 Please check [this](https://kotlinlang.org/docs/multiplatform-mobile-setup.html#install-the-necessary-tools) out for more details.
 
