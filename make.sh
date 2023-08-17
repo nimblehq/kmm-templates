@@ -101,21 +101,36 @@ fi
 # Generate iOS module
 sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
 
-# =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
-# TODO: Fully generate the KMM project later
-#
-# This is the initial script to generate the KMM project:
-# - Clone all project files to the "sample" directory
+# =====GENERATE ANDROID MODULE=====
+echo "=> Starting generate Android project with android-templates"
+cd android
+
+# Clean up unnecessary stuff
+sed -i '' 's/        cleanNewProjectFolder()//' scripts/new_project.kts
+sed -i '' 's/        buildProjectAndRunTests()//' scripts/new_project.kts
+
+kscript scripts/new_project.kts package-name=${bundle_id_production} app-name=${project_name} template=compose
+
+cd ..
+
+# =====CLONE ALL PROJECT FILES TO THE "SAMPLE" DIRECTORY=====
+echo "=> Clone all project files to the "sample" directory"
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
     --exclude 'make.sh' \
     --exclude 'make_ios.sh' \
+    --exclude '/android' \
     --exclude '/sample' \
     ./ sample/
+rsync -av ./android/sample/app/ sample/android/
 
 # Reset all git submodules
 cd ios
+git add .
+git reset --hard
+cd ..
+cd android
 git add .
 git reset --hard
 cd ..
