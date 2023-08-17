@@ -127,6 +127,14 @@ sed -i.bak "$(($line_number + 1))i\\"$'\n'"\
   pod 'shared', :path => '../shared'\\
 " podfile
 
+# Remove unnecessary files after generating the iOS module
+rm -rf .github
+rm -f README.md
+rm -f bitrise.yml
+rm -f codemagic.yaml
+rm *.bak
+rm *.sh
+
 # =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
 # TODO: Fully generate the KMM project later
 #
