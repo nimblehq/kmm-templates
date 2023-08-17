@@ -30,7 +30,7 @@ Follow these steps to set up a new project from the template:
 
     `$ ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0`
 
-The generated project is at `/sample` folder and ready to build, run and test 🎉
+The generated project is at `/sample` folder and ready to build, run, and test 🎉
 
 ## License
 
