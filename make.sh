@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
 
-# =====GENERATE IOS MODULE=====
 # Script inspired by https://gist.github.com/szeidner/613fe4652fc86f083cefa21879d5522b
 
 readonly PROGNAME=$(basename $0)
@@ -101,25 +100,16 @@ fi
 # Generate iOS module
 sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
 
-# =====GENERATE ANDROID MODULE=====
-echo "=> Starting generate Android project with android-templates"
-cd android
+# Generate Android module
+sh make_android.sh  -b ${bundle_id_production} -n ${project_name}
 
-# Clean up unnecessary stuff
-sed -i '' 's/        cleanNewProjectFolder()//' scripts/new_project.kts
-sed -i '' 's/        buildProjectAndRunTests()//' scripts/new_project.kts
-
-kscript scripts/new_project.kts package-name=${bundle_id_production} app-name=${project_name} template=compose
-
-cd ..
-
-# =====CLONE ALL PROJECT FILES TO THE "SAMPLE" DIRECTORY=====
+# Clone all project files to the "sample" directory
 echo "=> Clone all project files to the "sample" directory"
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
+    --exclude 'make_android.sh' \
     --exclude 'make.sh' \
-    --exclude 'make_ios.sh' \
     --exclude '/android' \
     --exclude '/sample' \
     ./ sample/
