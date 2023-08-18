@@ -87,37 +87,25 @@ if [ -z "$project_name" ] ; then
     read -p "PROJECT NAME (i.e. NewProject):" project_name
 fi
 
-cd ios
+if [[ -z "$minimum_ios_version" ]]; then
+    read -p "iOS Minimum Version (i.e. 14.0):" minimum_ios_version
+fi
 
-# Because iOS-template is a submodule of the KKM-template, there is no .git directory.
-sed -i.bak "/rm -f .git\/index/d" make.sh
-sed -i.bak "s/minimum_version=\"\"/minimum_version=${minimum_ios_version}/g" make.sh
-sed -i.bak "s/read -p \"iOS Minimum Version (i.e. 14.0):\" minimum_version/echo \"=> asdf\"/g" make.sh
+# Enforce minimum version
+version_regex='^[0-9_]+(\.[0-9]+)+$'
+if ! [[ $minimum_ios_version =~ $version_regex ]]; then
+    echo "=> Minimum version incorrect. Reverting to default version."
+    minimum_ios_version="14.0"
+fi
 
-sed -i.bak "/platform :ios*/d" podfile
-sed -i.bak "1i\\"$'\n'"\
-platform :ios, '${minimum_ios_version}'\\
-" podfile
-
-
-echo "=> Starting generate iOS project with iOS-template"
-
-sh make.sh -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name}
-
-echo "=> Adding shared module to the podfile"
-
-line_number=$(grep -n -i "# Development" podfile | cut -f1 -d:)
-
-sed -i.bak "$(($line_number + 1))i\\"$'\n'"\
-  pod 'shared', :path => '../shared'\\
-" podfile
-
+sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
+rm -rf make_ios.sh
+rm -rf make.sh
 # =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
 # TODO: Fully generate the KMM project later
 #
 # This is the initial script to generate the KMM project:
 # - Clone all project files to the "sample" directory
-cd ..
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
