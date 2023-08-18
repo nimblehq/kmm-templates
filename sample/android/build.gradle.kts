@@ -1,9 +1,11 @@
+import org.jetbrains.kotlin.konan.properties.loadProperties
+
 plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
+val keystoreProperties = loadProperties("android/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -30,9 +32,9 @@ android {
         create(BuildTypes.RELEASE) {
             // Remember to edit signing.properties to have the correct info for release build.
             storeFile = file("../config/release.keystore")
-            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD") as String
-            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD") as String
-            keyAlias = keystoreProperties.getProperty("KEY_ALIAS") as String
+            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD")
+            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD")
+            keyAlias = keystoreProperties.getProperty("KEY_ALIAS")
         }
 
         getByName(BuildTypes.DEBUG) {
@@ -56,6 +58,14 @@ android {
             isMinifyEnabled = false
             signingConfig = signingConfigs[BuildTypes.DEBUG]
         }
+    }
+    flavorDimensions += "version"
+    productFlavors {
+        create("staging") {
+            applicationIdSuffix = ".staging"
+        }
+
+        create("production") {}
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
