@@ -8,8 +8,6 @@ object Versions {
 
     const val ANDROID_APPLICATION = "8.0.2"
     const val ANDROID_LIBRARY = "8.0.2"
-    const val ANDROID = "1.8.21"
-    const val MULTIPLATFORM = "1.8.21"
 
     const val ANDROIDX_ACTIVITY_COMPOSE = "1.7.1"
 
@@ -18,6 +16,7 @@ object Versions {
 
     const val JVM_TARGET = "1.8"
 
+    const val KOTLIN = "1.8.21"
     const val KOIN = "3.3.2"
     const val KOIN_ANDROID = "3.3.2"
     const val KOIN_ANDROIDX_COMPOSE = "3.4.1"
