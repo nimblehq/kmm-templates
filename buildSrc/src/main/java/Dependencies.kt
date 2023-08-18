@@ -8,6 +8,8 @@ object Versions {
 
     const val ANDROIDX_ACTIVITY_COMPOSE = "1.7.1"
 
+    const val BUILD_KONFIG = "0.13.3"
+
     const val COMPOSE = "1.4.3"
     const val COMPOSE_COMPILER = "1.4.7"
     const val COMPOSE_NAVIGATION = "2.6.0"
@@ -22,6 +24,7 @@ object Versions {
     const val KOTLIN = "1.8.21"
     const val KOTLIN_COROUTINES = "1.7.3"
     const val KOVER = "0.7.3"
+    const val KTOR = "2.3.3"
 
     const val TIMBER = "5.0.1"
 }
@@ -43,9 +46,27 @@ object Dependencies {
         const val NAVIGATION = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
     }
 
+    object Ktor {
+        const val CORE = "io.ktor:ktor-client-core:${Versions.KTOR}"
+        const val SERIALIZATION = "io.ktor:ktor-client-serialization:${Versions.KTOR}"
+        const val LOGGING = "io.ktor:ktor-client-logging:${Versions.KTOR}"
+        const val CIO = "io.ktor:ktor-client-cio:${Versions.KTOR}"
+        const val CONTENT_NEGOTIATION = "io.ktor:ktor-client-content-negotiation:${Versions.KTOR}"
+        const val JSON = "io.ktor:ktor-serialization-kotlinx-json:${Versions.KTOR}"
+        const val AUTH = "io.ktor:ktor-client-auth:${Versions.KTOR}"
+        const val ANDROID = "io.ktor:ktor-client-android:${Versions.KTOR}"
+        const val IOS = "io.ktor:ktor-client-ios:${Versions.KTOR}"
+    }
+
     object Log {
         const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     }
+
+    // BuildKonfig
+    const val KOTLIN_GRADLE_PLUGIN =
+        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
+    const val BUILD_KONFIG =
+        "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.BUILD_KONFIG}"
 
     object Test {
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLIN_COROUTINES}"
