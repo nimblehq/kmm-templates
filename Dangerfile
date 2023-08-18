@@ -33,5 +33,5 @@ end
 # Report coverage of modified files, warn if total project coverage is under 80%
 # or if any modified file's coverage is under 95%
 kover_file = "build/reports/kover/report.xml"
-markdown "## Kover report for KMM Templates:"
+markdown "## Kover report:"
 shroud.reportKover "Unit Tests", kover_file, 80, 95, false

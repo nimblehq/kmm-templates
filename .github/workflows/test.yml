@@ -1,12 +1,7 @@
-name: Test
+name: Test and code analysis
 on:
   pull_request:
-    types: [ opened, synchronize, reopened ]
-  push:
-    branches-ignore:
-      - develop
-      - 'release/**'
-      - main
+    types: [ opened, synchronize, reopened, ready_for_review ]
 
 jobs:
   test:
