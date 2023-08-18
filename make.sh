@@ -98,49 +98,14 @@ if ! [[ $minimum_ios_version =~ $version_regex ]]; then
     minimum_ios_version="14.0"
 fi
 
-cd ios
-
-echo "=> Removing unnecessary files and folders"
-rm -rf {PROJECT_NAME}/sources/data
-
-# Because iOS-template is a submodule of the KKM-template, there is no .git directory.
-sed -i.bak "/rm -f .git*/d" make.sh
-
-sed -i.bak "s/minimum_version=\"\"/minimum_version=${minimum_ios_version}/g" make.sh
-sed -i.bak "s/read -p \"iOS Minimum Version (i.e. 14.0):\" minimum_version/echo \"=> Minimum iOS version: $minimum_ios_version\"/g" make.sh
-
-sed -i.bak "/platform :ios*/d" podfile
-sed -i.bak "1i\\"$'\n'"\
-platform :ios, '${minimum_ios_version}'\\
-" podfile
-
-
-echo "=> Starting generate iOS project with iOS-template"
-
-sh make.sh -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name}
-
-echo "=> Adding shared module to the podfile"
-
-line_number=$(grep -n -i "# Development" podfile | cut -f1 -d:)
-
-sed -i.bak "$(($line_number + 1))i\\"$'\n'"\
-  pod 'shared', :path => '../shared'\\
-" podfile
-
-# Remove unnecessary files after generating the iOS module
-rm -rf .github
-rm -f README.md
-rm -f bitrise.yml
-rm -f codemagic.yaml
-rm *.bak
-rm *.sh
-
+sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
+rm -rf make_ios.sh
+rm -rf make.sh
 # =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
 # TODO: Fully generate the KMM project later
 #
 # This is the initial script to generate the KMM project:
 # - Clone all project files to the "sample" directory
-cd ..
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
