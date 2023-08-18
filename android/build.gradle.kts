@@ -5,7 +5,7 @@ plugins {
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = loadProperties("android/signing.properties")
+val keystoreProperties = loadProperties("signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -39,6 +39,7 @@ android {
 
         getByName(BuildTypes.DEBUG) {
             storeFile = file("../config/debug.keystore")
+            //FIXME: Replace with your own password
             storePassword = "oQ4mL1jY2uX7wD8q"
             keyAlias = "debug-key-alias"
             keyPassword = "oQ4mL1jY2uX7wD8q"
@@ -59,13 +60,16 @@ android {
             signingConfig = signingConfigs[BuildTypes.DEBUG]
         }
     }
-    flavorDimensions += "version"
+    flavorDimensions += Flavors.DIMENSION_VERSION
     productFlavors {
-        create("staging") {
+        create(Flavors.STAGING) {
             applicationIdSuffix = ".staging"
+            resValue("string", "app_name", "KMM Templates - Staging")
         }
 
-        create("production") {}
+        create(Flavors.PRODUCTION) {
+            resValue("string", "app_name", "KMM Templates")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
