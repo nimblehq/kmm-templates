@@ -102,7 +102,7 @@ PODS:
   - Sourcery (2.0.2):
     - Sourcery/CLI-Only (= 2.0.2)
   - Sourcery/CLI-Only (2.0.2)
-  - SwiftFormat/CLI (0.52.1)
+  - SwiftFormat/CLI (0.52.2)
   - SwiftLint (0.52.4)
   - Wormholy (1.7.0)
   - xcbeautify (0.17.0)
@@ -223,7 +223,7 @@ SPEC CHECKSUMS:
   RxTest: eb2d23adefc5a5ebf5779c7792fa3edfe6ebcc17
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Sourcery: 9ae7eb711f830e8c3c02b98dc28fbd7e32e9d971
-  SwiftFormat: 389ee6913a688cc37719ba47eefebc605c3e1e2e
+  SwiftFormat: 7a8a87bc31cdf971d6e91712f5be72506baeb036
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
   xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
