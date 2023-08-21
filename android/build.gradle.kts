@@ -1,9 +1,11 @@
+import org.jetbrains.kotlin.konan.properties.loadProperties
+
 plugins {
     id(Plugins.ANDROID_APPLICATION)
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
+val keystoreProperties = loadProperties("signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -30,13 +32,14 @@ android {
         create(BuildTypes.RELEASE) {
             // Remember to edit signing.properties to have the correct info for release build.
             storeFile = file("../config/release.keystore")
-            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD") as String
-            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD") as String
-            keyAlias = keystoreProperties.getProperty("KEY_ALIAS") as String
+            storePassword = keystoreProperties.getProperty("KEYSTORE_PASSWORD")
+            keyPassword = keystoreProperties.getProperty("KEY_PASSWORD")
+            keyAlias = keystoreProperties.getProperty("KEY_ALIAS")
         }
 
         getByName(BuildTypes.DEBUG) {
             storeFile = file("../config/debug.keystore")
+            //FIXME: Replace with your own password
             storePassword = "oQ4mL1jY2uX7wD8q"
             keyAlias = "debug-key-alias"
             keyPassword = "oQ4mL1jY2uX7wD8q"
@@ -55,6 +58,17 @@ android {
             // For quickly testing build with proguard, enable this
             isMinifyEnabled = false
             signingConfig = signingConfigs[BuildTypes.DEBUG]
+        }
+    }
+    flavorDimensions += Flavors.DIMENSION_VERSION
+    productFlavors {
+        create(Flavors.STAGING) {
+            applicationIdSuffix = ".staging"
+            resValue("string", "app_name", "KMM Templates - Staging")
+        }
+
+        create(Flavors.PRODUCTION) {
+            resValue("string", "app_name", "KMM Templates")
         }
     }
     compileOptions {
