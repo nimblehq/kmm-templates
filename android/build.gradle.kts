@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
     id(Plugins.ANDROID_APPLICATION)
-    id(Plugins.KOVER) version Versions.KOVER
+    id(Plugins.KOVER)
     kotlin(Plugins.ANDROID)
 }
 

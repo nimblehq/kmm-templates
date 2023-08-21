@@ -4,7 +4,7 @@ plugins {
     kotlin(Plugins.MULTIPLATFORM)
     kotlin(Plugins.COCOAPODS)
     id(Plugins.ANDROID_LIBRARY)
-    id(Plugins.KOVER) version Versions.KOVER
+    id(Plugins.KOVER)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
