@@ -50,6 +50,7 @@ sed -i '' "s/minimum_version=\"\"/minimum_version=${minimum_ios_version}/g" make
 sed -i '' "s/read -p \"iOS Minimum Version (i.e. 14.0):\" minimum_version/echo \"=> Minimum iOS version: $minimum_ios_version\"/g" make.sh
 
 sed -i '' "/platform :ios*/d" podfile
+sed -i '' "/pod 'RxAlamofire'*/d" podfile
 sed -i '' "1i\\"$'\n'"\
 platform :ios, '${minimum_ios_version}'\\
 " podfile

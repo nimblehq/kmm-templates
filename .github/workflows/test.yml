@@ -138,11 +138,19 @@ jobs:
           ref: ${{ github.head_ref }}
           submodules: "recursive"
 
+      - name: Preserve the ArkanaKeys (avoid code change in git when refreshing the "sample" project)
+        run: mv -f ./sample/ios/ArkanaKeys ../
+
       - name: Remove the old sample project
         run: rm -rf sample
 
       - name: Generate the new sample project
         run: ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0
+
+      - name: Restore the previous ArkanaKeys's keys
+        run: |
+          rm -rf ./sample/ios/ArkanaKeys
+          mv -f ../ArkanaKeys ./sample/ios
 
       - id: changes
         name: Check for changes in the sample project
