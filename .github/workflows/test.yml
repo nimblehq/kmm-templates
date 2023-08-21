@@ -52,10 +52,75 @@ jobs:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
         run: bundle exec danger
 
+  ios_test:
+    name: Running tests in iOS
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./sample/ios
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2.1.0
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Remove the old sample project
+        run: rm -rf sample
+        working-directory: ./
+
+      - name: Generate the new sample project
+        run: sh make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0
+        working-directory: ./
+
+      - name: Bundle install
+        run: bundle install --path vendor/bundle
+
+      - name: Cache Pods
+        uses: actions/cache@v3
+        id: cocoapodCache
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Generate KMM frameworks for Cocoapods
+        run: |
+          cd ..
+          ./gradlew generateDummyFramework
+
+      - name: Install Pods Dependencies
+        run: bundle exec pod install
+
+      - name: Build and Test
+        run: bundle exec fastlane buildAndTest
+        env:
+          CI: true
+
+      - name: Clean up previous code coverage report
+        run: bundle exec fastlane cleanUpOutput
+
+      - name: Review pull request by Danger
+        uses: MeilCli/danger-action@v5
+        with:
+          plugins_file: 'sample/ios/Gemfile'
+          install_path: 'sample/ios/vendor/bundle'
+          danger_file: 'sample/ios/Dangerfile'
+          danger_id: 'danger-pr'
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   generate_sample_project:
     # The job "generate_sample_project" identify that the job "test" must complete successfully
     # before this "generate_sample_project" job will run
-    needs: test
+    needs: [test, ios_test]
     name: Generate the sample project
     runs-on: macos-latest
     timeout-minutes: 30
