@@ -17,7 +17,6 @@ target 'sample' do
   pod 'SnapKit'
 
   # Rx
-  pod 'RxAlamofire'
   pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxSwift'
