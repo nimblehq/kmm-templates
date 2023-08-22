@@ -100,6 +100,12 @@ dependencies {
         implementation(TIMBER)
     }
 
+    with(Dependencies.Koin) {
+        implementation(CORE)
+        implementation(ANDROID)
+        implementation(COMPOSE)
+    }
+
     with(Dependencies.Test) {
         implementation(JUNIT)
         implementation(COROUTINES)
