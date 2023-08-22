@@ -29,4 +29,6 @@ object Plugins {
     const val KOVER = "org.jetbrains.kotlinx.kover"
 
     const val MULTIPLATFORM = "multiplatform"
+
+    const val KSP = "com.google.devtools.ksp"
 }

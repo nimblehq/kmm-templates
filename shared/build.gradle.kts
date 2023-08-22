@@ -1,10 +1,14 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
+import org.jetbrains.kotlin.konan.properties.loadProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
     kotlin(Plugins.MULTIPLATFORM)
     kotlin(Plugins.IOS_COCOAPODS)
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOVER)
+    id(Plugins.KSP) version (Versions.KSP)
+    id(Plugins.BUILD_KONFIG)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -42,14 +46,66 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(Dependencies.Koin.CORE)
+
+                // Ktor
+                with(Dependencies.Ktor) {
+                    implementation(CORE)
+                    implementation(SERIALIZATION)
+                    implementation(LOGGING)
+                    implementation(CIO)
+                    implementation(CONTENT_NEGOTIATION)
+                    implementation(JSON)
+                    implementation(AUTH)
+                }
+                implementation(Dependencies.Logging.NAPIER)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                with(Dependencies.Test) {
+                    implementation(COROUTINES)
+                    implementation(KOTEST_ASSERTIONS)
+                    implementation(KOTLINX_RESOURCES)
+                    implementation(MOCKATIVE)
+                    implementation(TURBINE)
+                }
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(Dependencies.Koin.ANDROID)
+                implementation(Dependencies.Koin.COMPOSE)
+                implementation(Dependencies.Ktor.ANDROID)
+            }
+        }
+
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by getting {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation(Dependencies.Ktor.IOS)
             }
         }
     }
+}
+
+// https://github.com/mockative/mockative#installation-for-multiplatform-projects
+dependencies {
+    configurations
+        .filter { it.name.startsWith("ksp") && it.name.contains("Test") }
+        .forEach {
+            add(it.name, Dependencies.Test.MOCKATIVE_PROCESSOR)
+        }
+}
+
+ksp {
+    arg("mockative.stubsUnitByDefault", "true")
 }
 
 android {
@@ -57,5 +113,31 @@ android {
     compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
     defaultConfig {
         minSdk = Versions.ANDROID_MIN_SDK_VERSION
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+}
+
+val buildKonfigProperties = loadProperties("buildKonfig.properties")
+buildkonfig {
+    packageName = "co.nimblehq.kmm.template"
+
+    // Default for Flavors.STAGING
+    defaultConfigs {
+        buildConfigField(
+            STRING,
+            "BASE_URL",
+            buildKonfigProperties.getProperty("STAGING_BASE_URL")
+        )
+    }
+
+    defaultConfigs(Flavors.PRODUCTION) {
+        buildConfigField(
+            STRING,
+            "BASE_URL",
+            buildKonfigProperties.getProperty("PRODUCTION_BASE_URL")
+        )
     }
 }
