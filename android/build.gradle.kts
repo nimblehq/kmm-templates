@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
     id(Plugins.ANDROID_APPLICATION)
+    id(Plugins.KOVER)
     kotlin(Plugins.ANDROID)
 }
 
@@ -102,5 +103,39 @@ dependencies {
     with(Dependencies.Test) {
         implementation(JUNIT)
         implementation(COROUTINES)
+    }
+}
+
+/*
+ * Kover configs
+ */
+dependencies {
+    kover(project(":shared"))
+}
+
+koverReport {
+    defaults {
+        mergeWith("stagingDebug")
+
+        val excludedFiles = listOf(
+            "io.mockative.*",
+            "*.BuildConfig",
+            "*.BuildKonfig",                        // BuildKonfig generated
+            "*.ComposableSingletons*",              // Jetpack Compose generated
+            "*.*\$*Preview\$*",                     // Jetpack Compose Preview functions
+            "*.di.*",                               // Koin
+            "*.ui.preview.*",                       // Jetpack Compose Preview providers
+            "*.*Test",                              // Test files
+            "*.*Test*",                             // Test cases
+            "*.*Mock",                              // mockative @Mock generated
+            "*.test.*",                             // Test util package
+            "*.*\$\$serializer",                    // Kotlinx serializer
+        )
+
+        filters {
+            excludes {
+                classes(excludedFiles)
+            }
+        }
     }
 }
