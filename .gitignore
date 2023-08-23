@@ -47,6 +47,7 @@ captures
 .cxx
 local.properties
 xcuserdata
+buildKonfig.properties
 
 # iOS
 ios/Pods/
