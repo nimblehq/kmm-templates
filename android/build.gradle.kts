@@ -96,14 +96,14 @@ dependencies {
         implementation(UI_TOOLING)
     }
 
-    with(Dependencies.Log) {
-        implementation(TIMBER)
-    }
-
     with(Dependencies.Koin) {
         implementation(CORE)
         implementation(ANDROID)
         implementation(COMPOSE)
+    }
+
+    with(Dependencies.Log) {
+        implementation(TIMBER)
     }
 
     with(Dependencies.Test) {

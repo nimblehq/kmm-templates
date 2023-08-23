@@ -8,8 +8,8 @@ import org.koin.dsl.KoinAppDeclaration
 fun initKoin(
     appDeclaration: KoinAppDeclaration = {}
 ): KoinApplication {
-    val dataModules = listOf(remoteModule)
-    val domainModules = listOf(repositoryModule, useCaseModule)
+    val dataModules = listOf(remoteModule, repositoryModule)
+    val domainModules = listOf(useCaseModule)
 
     return startKoin {
         appDeclaration()
