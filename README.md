@@ -22,15 +22,23 @@ Follow these steps to set up a new project from the template:
 
 1. Clone or download this repository to your local machine.
 
-2. Fetch all git sub-modules for the first time.
+2. Fetch all git sub-modules for the first time:
 
     `$ git submodule update --init --recursive`
 
-3. Generate the new project by running the following command.
+3. Generate the new project by running the following command:
 
-    `$ ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0`
+    `$ ./make.sh --bundle-id co.nimblehq.kmm.template --bundle-id-staging co.nimblehq.kmm.template.staging --project-name sample --ios-version 14.0`
 
-The generated project is at `/sample` folder and ready to build, run, and test 🎉
+    To skip CI/CD service generating from iOS script, export this CI env:
+
+    `$ export CI=true`
+
+The generated project is in the `/sample` folder and ready to build, run, and test 🎉
+
+## Contributing
+
+See [the contributing guide](CONTRIBUTING.md) for detailed instructions on how to get started with our project.
 
 ## License
 
