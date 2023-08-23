@@ -19,6 +19,9 @@ object Versions {
     const val JUNIT = "4.13.2"
     const val JVM_TARGET = "1.8"
 
+    const val KOIN = "3.3.2"
+    const val KOIN_ANDROID = "3.3.2"
+    const val KOIN_ANDROIDX_COMPOSE = "3.4.1"
     const val KOTLIN = "1.8.21"
     const val KOTLIN_COROUTINES = "1.7.3"
     const val KOVER = "0.7.3"
@@ -39,8 +42,16 @@ object Dependencies {
         const val UI = "androidx.compose.ui:ui:${Versions.COMPOSE}"
         const val UI_GRAPHICS = "androidx.compose.ui:ui-graphics:${Versions.COMPOSE}"
         const val UI_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
+        const val UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+        const val FOUNDATION = "androidx.compose.foundation:foundation:${Versions.COMPOSE}"
         const val MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE}"
         const val NAVIGATION = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
+    }
+
+    object Koin {
+        const val CORE = "io.insert-koin:koin-core:${Versions.KOIN}"
+        const val ANDROID = "io.insert-koin:koin-android:${Versions.KOIN_ANDROID}"
+        const val COMPOSE = "io.insert-koin:koin-androidx-compose:${Versions.KOIN_ANDROIDX_COMPOSE}"
     }
 
     object Log {
