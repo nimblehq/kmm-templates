@@ -13,7 +13,6 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.json
-import kotlinx.coroutines.flow.Flow
 
 internal class ApiClient(
     engine: HttpClientEngine,
@@ -45,10 +44,10 @@ internal class ApiClient(
         }
     }
 
-    suspend inline fun <reified T> get(path: String): Flow<T> =
+    suspend inline fun <reified T> get(path: String): T =
         request(path, HttpMethod.Get)
 
-    suspend inline fun <reified T> post(path: String, requestBody: Any): Flow<T> =
+    suspend inline fun <reified T> post(path: String, requestBody: Any): T =
         request(path, HttpMethod.Post, requestBody)
 
     suspend inline fun <reified T> request(path: String, method: HttpMethod, requestBody: Any? = null): T {

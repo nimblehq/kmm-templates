@@ -5,6 +5,8 @@ import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 plugins {
     kotlin(Plugins.MULTIPLATFORM)
     kotlin(Plugins.IOS_COCOAPODS)
+    kotlin(Plugins.KOTLIN_SERIALIZATION)
+    id(Plugins.KOTLINX_SERIALIZATION)
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOVER)
     id(Plugins.KSP)
