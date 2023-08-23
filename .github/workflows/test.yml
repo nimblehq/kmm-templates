@@ -1,16 +1,29 @@
-name: Test and code analysis
+name: Code analysis, test and generate sample project
 on:
   pull_request:
     types: [ opened, synchronize, reopened, ready_for_review ]
 
 jobs:
   test:
-    name: Test
-    runs-on: ubuntu-latest
+    name: Code analysis, test and generate sample project
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
-      - name: Check out source code
+      - name: Check out
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          submodules: "recursive"
+
+      # Generate working project
+
+      - name: Remove the old sample project
+        run: rm -rf sample
+
+      - name: Generate the new sample project
+        run: ./make.sh --bundle-id co.nimblehq.kmm.template --bundle-id-staging co.nimblehq.kmm.template.staging --project-name sample --ios-version 14.0
+
+      # Run code analytics and tests
 
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -33,12 +46,15 @@ jobs:
             ${{ runner.os }}-gradle-
 
       - name: Run Detekt
+        working-directory: ./sample
         run: ./gradlew detekt
 
       - name: Run Lint
+        working-directory: ./sample
         run: ./gradlew lint
 
       - name: Run unit tests with Kover
+        working-directory: ./sample
         run: ./gradlew koverXMLReport
 
       - name: Set up Ruby
@@ -50,6 +66,7 @@ jobs:
       - name: Run Danger to wrap up the review
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
+        working-directory: ./sample
         run: bundle exec danger
 
   ios_test:
