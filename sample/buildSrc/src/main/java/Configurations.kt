@@ -20,9 +20,9 @@ object Plugins {
 
     const val BUILD_KONFIG = "com.codingfeline.buildkonfig"
 
-    const val IOS_COCOAPODS = "native.cocoapods"
-
     const val DETEKT = "io.gitlab.arturbosch.detekt"
+
+    const val IOS_COCOAPODS = "native.cocoapods"
 
     const val KOTLIN_SERIALIZATION = "plugin.serialization"
     const val KOTLINX_SERIALIZATION = "kotlinx-serialization"

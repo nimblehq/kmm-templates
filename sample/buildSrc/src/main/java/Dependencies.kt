@@ -19,13 +19,12 @@ object Versions {
     const val JUNIT = "4.13.2"
     const val JVM_TARGET = "1.8"
 
-    const val KOTLIN = "1.8.21"
-    const val KOTLIN_COROUTINES = "1.7.3"
-    const val KOVER = "0.7.3"
-
     const val KOIN = "3.3.2"
     const val KOIN_ANDROID = "3.3.2"
     const val KOIN_ANDROIDX_COMPOSE = "3.4.1"
+    const val KOTLIN = "1.8.21"
+    const val KOTLIN_COROUTINES = "1.7.3"
+    const val KOVER = "0.7.3"
 
     const val TIMBER = "5.0.1"
 }
@@ -49,6 +48,12 @@ object Dependencies {
         const val NAVIGATION = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
     }
 
+    object Koin {
+        const val CORE = "io.insert-koin:koin-core:${Versions.KOIN}"
+        const val ANDROID = "io.insert-koin:koin-android:${Versions.KOIN_ANDROID}"
+        const val COMPOSE = "io.insert-koin:koin-androidx-compose:${Versions.KOIN_ANDROIDX_COMPOSE}"
+    }
+
     object Log {
         const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     }
@@ -57,11 +62,5 @@ object Dependencies {
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLIN_COROUTINES}"
 
         const val JUNIT = "junit:junit:${Versions.JUNIT}"
-    }
-
-    object Koin {
-        const val CORE = "io.insert-koin:koin-core:${Versions.KOIN}"
-        const val ANDROID = "io.insert-koin:koin-android:${Versions.KOIN_ANDROID}"
-        const val COMPOSE = "io.insert-koin:koin-androidx-compose:${Versions.KOIN_ANDROIDX_COMPOSE}"
     }
 }

@@ -41,7 +41,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // Koin
                 implementation(Dependencies.Koin.CORE)
             }
         }
