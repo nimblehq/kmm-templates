@@ -4,3 +4,4 @@
 [submodule "android"]
 	path = android
 	url = git@github.com:nimblehq/android-templates.git
+	branch = feature/kmm-support-upgrade-to-gradle-8
