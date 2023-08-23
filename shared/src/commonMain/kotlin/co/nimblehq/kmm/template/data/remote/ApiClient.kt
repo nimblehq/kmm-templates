@@ -1,6 +1,6 @@
 package co.nimblehq.kmm.template.data.remote
 
-import co.nimblehq.kmm.template.data.extension.path
+import co.nimblehq.kmm.template.data.extensions.path
 import io.github.aakira.napier.DebugAntilog
 import io.github.aakira.napier.Napier
 import io.ktor.client.HttpClient
@@ -14,7 +14,6 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 internal class ApiClient(
     engine: HttpClientEngine,
@@ -52,17 +51,14 @@ internal class ApiClient(
     suspend inline fun <reified T> post(path: String, requestBody: Any): Flow<T> =
         request(path, HttpMethod.Post, requestBody)
 
-    suspend inline fun <reified T> request(path: String, method: HttpMethod, requestBody: Any? = null): Flow<T> {
-        return flow {
-            val body = httpClient.request(
-                HttpRequestBuilder().apply {
-                    this.method = method
-                    path(path)
-                    requestBody?.let { setBody(requestBody) }
-                    contentType(ContentType.Application.Json)
-                }
-            ).body<T>()
-            emit(body)
-        }
+    suspend inline fun <reified T> request(path: String, method: HttpMethod, requestBody: Any? = null): T {
+        return httpClient.request(
+            HttpRequestBuilder().apply {
+                this.method = method
+                path(path)
+                requestBody?.let { setBody(requestBody) }
+                contentType(ContentType.Application.Json)
+            }
+        ).body()
     }
 }

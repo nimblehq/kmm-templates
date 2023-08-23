@@ -2,9 +2,9 @@ package co.nimblehq.kmm.template.util
 
 import co.nimblehq.kmm.template.domain.model.UserModel
 
-object TestUtil {
+object Fake {
 
-    val user = UserModel(id = 0)
+    private val user = UserModel(id = 0)
 
     val users = listOf(user)
 }

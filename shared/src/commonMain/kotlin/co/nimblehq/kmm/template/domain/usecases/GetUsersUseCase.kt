@@ -1,7 +1,7 @@
-package co.nimblehq.kmm.template.domain.usecase
+package co.nimblehq.kmm.template.domain.usecases
 
 import co.nimblehq.kmm.template.domain.model.UserModel
-import co.nimblehq.kmm.template.domain.repository.Repository
+import co.nimblehq.kmm.template.domain.repositories.Repository
 import kotlinx.coroutines.flow.Flow
 
 interface GetUsersUseCase {

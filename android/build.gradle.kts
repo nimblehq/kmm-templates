@@ -77,7 +77,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Versions.JVM_TARGET
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
@@ -102,7 +102,7 @@ dependencies {
         implementation(COMPOSE)
     }
 
-    with(Dependencies.Log) {
+    with(Dependencies.Logging) {
         implementation(TIMBER)
     }
 

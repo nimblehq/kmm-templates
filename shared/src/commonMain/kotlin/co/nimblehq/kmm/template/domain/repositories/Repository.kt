@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.domain.repository
+package co.nimblehq.kmm.template.domain.repositories
 
 import co.nimblehq.kmm.template.domain.model.UserModel
 import kotlinx.coroutines.flow.Flow

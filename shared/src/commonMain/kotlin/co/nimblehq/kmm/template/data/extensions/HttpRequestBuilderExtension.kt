@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.data.extension
+package co.nimblehq.kmm.template.data.extensions
 
 import co.nimblehq.kmm.template.BuildKonfig
 import io.ktor.client.request.*

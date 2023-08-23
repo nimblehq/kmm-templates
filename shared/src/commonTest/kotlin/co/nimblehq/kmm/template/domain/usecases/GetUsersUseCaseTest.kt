@@ -1,8 +1,8 @@
-package co.nimblehq.kmm.template.domain.usecase
+package co.nimblehq.kmm.template.domain.usecases
 
 import app.cash.turbine.test
-import co.nimblehq.kmm.template.domain.repository.Repository
-import co.nimblehq.kmm.template.util.TestUtil.users
+import co.nimblehq.kmm.template.domain.repositories.Repository
+import co.nimblehq.kmm.template.util.Fake.users
 import io.kotest.matchers.shouldBe
 import io.mockative.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi

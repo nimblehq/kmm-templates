@@ -7,7 +7,7 @@ plugins {
     kotlin(Plugins.IOS_COCOAPODS)
     id(Plugins.ANDROID_LIBRARY)
     id(Plugins.KOVER)
-    id(Plugins.KSP) version (Versions.KSP)
+    id(Plugins.KSP)
     id(Plugins.BUILD_KONFIG)
 }
 
@@ -18,7 +18,7 @@ kotlin {
     android {
         compilations.all {
             kotlinOptions {
-                jvmTarget = Versions.JVM_TARGET
+                jvmTarget = JavaVersion.VERSION_17.toString()
             }
         }
     }
@@ -47,7 +47,6 @@ kotlin {
             dependencies {
                 implementation(Dependencies.Koin.CORE)
 
-                // Ktor
                 with(Dependencies.Ktor) {
                     implementation(CORE)
                     implementation(SERIALIZATION)
@@ -57,6 +56,7 @@ kotlin {
                     implementation(JSON)
                     implementation(AUTH)
                 }
+
                 implementation(Dependencies.Logging.NAPIER)
             }
         }
@@ -104,6 +104,7 @@ dependencies {
         }
 }
 
+// https://github.com/mockative/mockative#implicit-stubbing-of-functions-returning-unit
 ksp {
     arg("mockative.stubsUnitByDefault", "true")
 }

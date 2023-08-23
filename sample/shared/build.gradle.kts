@@ -14,7 +14,7 @@ kotlin {
     android {
         compilations.all {
             kotlinOptions {
-                jvmTarget = Versions.JVM_TARGET
+                jvmTarget = JavaVersion.VERSION_17.toString()
             }
         }
     }
