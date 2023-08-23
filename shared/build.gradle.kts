@@ -49,12 +49,6 @@ kotlin {
                 implementation(kotlin("test"))
             }
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(Dependencies.Koin.ANDROID)
-                implementation(Dependencies.Koin.COMPOSE)
-            }
-        }
     }
 }
 
