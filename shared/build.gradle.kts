@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
-import org.jetbrains.kotlin.konan.properties.loadProperties
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
 
 plugins {
@@ -123,7 +122,7 @@ android {
     }
 }
 
-val buildKonfigProperties = loadProperties("buildKonfig.properties")
+val buildKonfigProperties = rootDir.loadGradleProperties("buildKonfig.properties")
 buildkonfig {
     packageName = "co.nimblehq.kmm.template"
 
