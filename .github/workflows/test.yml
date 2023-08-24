@@ -16,6 +16,7 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
         with:
+          fetch-depth: 100
           ref: ${{ github.head_ref }}
           submodules: "recursive"
 
@@ -67,11 +68,22 @@ jobs:
           ruby-version: '2.7'
           bundler-cache: true
 
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
       - name: Run Danger to wrap up the review
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
         working-directory: ./sample
-        run: bundle exec danger
+        run: |
+          bundle config path vendor/bundle
+          bundle install
+          bundle exec danger
 
   ios_test:
     name: Running iOS tests
