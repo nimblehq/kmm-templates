@@ -113,9 +113,3 @@ rsync -av \
     --exclude 'make.sh' \
     --exclude './sample' \
     ./ sample/
-
-# Correct path in Dangerfile in sample
-#sed -i '' "s/'.\//'.\/sample\/ios\//g" ./sample/ios/dangerfile
-#sed -i '' 's/".\//".\/sample\/ios\//g' ./sample/ios/dangerfile
-#sed -i '' "s/'\.swiftlint\.yml'/'\.\/sample\/ios\/\.swiftlint\.yml'/g" ./sample/ios/dangerfile
-#sed -i '' "s/'Pods\/\*\*'/'sample\/ios\/Pods\/\*\*'/g" ./sample/ios/dangerfile
