@@ -1,20 +1,23 @@
 object Dependencies {
 
     object AndroidX {
-        const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE}"
+        const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
+        const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
+        const val LIFECYCLE_RUNTIME_COMPOSE = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.LIFECYCLE}"
+
+        const val DATASTORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATASTORE_PREFERENCES}"
+        const val SECURITY_CRYPTO = "androidx.security:security-crypto:${Versions.SECURITY_CRYPTO}"
     }
 
     object Compose {
-        const val FOUNDATION = "androidx.compose.foundation:foundation:${Versions.COMPOSE}"
-
-        const val MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE}"
-
+        const val BOM = "androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"
+        const val UI = "androidx.compose.ui:ui"
+        const val UI_GRAPHICS = "androidx.compose.ui:ui-graphics"
+        const val UI_TOOLING = "androidx.compose.ui:ui-tooling"
+        const val MATERIAL = "androidx.compose.material:material"
         const val NAVIGATION = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
 
-        const val UI = "androidx.compose.ui:ui:${Versions.COMPOSE}"
-        const val UI_GRAPHICS = "androidx.compose.ui:ui-graphics:${Versions.COMPOSE}"
-        const val UI_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
-        const val UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+        const val ACCOMPANIST_PERMISSIONS = "com.google.accompanist:accompanist-permissions:${Versions.ACCOMPANIST}"
     }
 
     object Koin {
@@ -45,9 +48,12 @@ object Dependencies {
         const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     }
 
+    object Util {
+        const val COMMON_KTX = "com.github.nimblehq:android-common-ktx:${Versions.COMMON_KTX}"
+    }
+
     object Test {
-        const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
-        const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:${Versions.COMPOSE}"
+        const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4"
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLIN_COROUTINES}"
 
         const val JUNIT = "junit:junit:${Versions.JUNIT}"

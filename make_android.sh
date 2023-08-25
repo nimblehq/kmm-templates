@@ -28,9 +28,14 @@ echo "=> Starting generate Android project with android-templates"
 cd android
 
 # Clean up unnecessary stuff
-sed -i '' 's/        cleanNewProjectFolder()//' scripts/new_project.kts
-sed -i '' 's/        buildProjectAndRunTests()//' scripts/new_project.kts
+sed -i '' "/        cleanNewProjectFolder()*/d" scripts/new_project.kts
+sed -i '' "/        buildProjectAndRunTests()*/d" scripts/new_project.kts
 
 kscript scripts/new_project.kts package-name=${bundle_id} app-name=${project_name} template=compose
+
+# Correct dependencies
+sed -i '' 's/Modules.DATA/Modules.SHARED/' sample/app/build.gradle.kts
+sed -i '' "/implementation(project(Modules.DOMAIN))*/d" sample/app/build.gradle.kts
+sed -i '' "/kover(project(Modules.DOMAIN))*/d" sample/app/build.gradle.kts
 
 cd ..

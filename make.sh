@@ -108,8 +108,9 @@ echo "=> Clone all project files to the "sample" directory"
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
-    --exclude 'make_android.sh' \
     --exclude 'make.sh' \
+    --exclude 'make_android.sh' \
+    --exclude 'make_ios.sh' \
     --exclude '/android' \
     --exclude '/sample' \
     ./ sample/
