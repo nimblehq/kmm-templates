@@ -99,6 +99,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
+      - name: Decode buildKonfig properties
+        working-directory: ./sample
+        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
+
       - name: Generate KMM frameworks for Cocoapods
         run: |
           cd ..
