@@ -1,25 +1,73 @@
-name: Test and code analysis
+name: Code analysis, test and generate sample project
 on:
   pull_request:
     types: [ opened, synchronize, reopened, ready_for_review ]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  generate_sample:
+    name: Generate the sample project
+    runs-on: macos-latest
     timeout-minutes: 30
     steps:
-      - name: Check out source code
+      - name: Check out
         uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          submodules: "recursive"
+
+      - name: Preserve the ArkanaKeys (avoid code change in git when refreshing the "sample" project)
+        run: mv -f ./sample/ios/ArkanaKeys ../
+
+      - name: Remove the old sample project
+        run: rm -rf sample
+
+      - name: Generate the new sample project
+        run: ./make.sh --bundle-id co.nimblehq.kmm.template --bundle-id-staging co.nimblehq.kmm.template.staging --project-name sample --ios-version 14.0
+
+      - name: Restore the previous ArkanaKeys's keys
+        run: |
+          rm -rf ./sample/ios/ArkanaKeys
+          mv -f ../ArkanaKeys ./sample/ios
+
+      - id: changes
+        name: Check for changes in the sample project
+        run: |
+          count=$(git status sample --porcelain | wc -l)
+          echo "count=$count" >> $GITHUB_OUTPUT
+
+      - name: Commit & push the sample project changes
+        if: steps.changes.outputs.count > 0
+        run: |
+          git config user.name team-nimblehq
+          git config user.email bot@nimblehq.co
+          git add sample
+          git commit -m "[Chore] Generate & update sample project"
+          git push
+
+  android_test:
+    needs: [generate_sample]
+    name: Run Android code analysis and tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: ./sample
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 100
+          submodules: "recursive"
 
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - name: Decode buildKonfig properties
-        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > ./buildKonfig.properties
 
       - name: Cache Gradle
         uses: actions/cache@v3
@@ -31,6 +79,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Decode buildKonfig properties
+        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
 
       - name: Run Detekt
         run: ./gradlew detekt
@@ -49,11 +100,14 @@ jobs:
 
       - name: Run Danger to wrap up the review
         env:
-          DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
-        run: bundle exec danger
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bundle install
+          bundle exec danger
 
   ios_test:
-    name: Running iOS tests
+    needs: [generate_sample]
+    name: Run iOS code analysis and tests
     runs-on: macos-latest
     defaults:
       run:
@@ -62,7 +116,8 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
         with:
-          submodules: recursive
+          fetch-depth: 100
+          submodules: "recursive"
 
       - name: Set up cache
         uses: actions/cache@v3
@@ -78,14 +133,6 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '17'
-
-      - name: Remove the old sample project
-        run: rm -rf sample
-        working-directory: ./
-
-      - name: Generate the new sample project
-        run: sh make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0
-        working-directory: ./
 
       - name: Bundle install
         run: bundle install
@@ -123,47 +170,3 @@ jobs:
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bundle exec danger
-
-  generate_sample_project:
-    # The job "generate_sample_project" identify that the job "test" must complete successfully
-    # before this "generate_sample_project" job will run
-    needs: [test, ios_test]
-    name: Generate the sample project
-    runs-on: macos-latest
-    timeout-minutes: 30
-    steps:
-      - name: Check out
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.head_ref }}
-          submodules: "recursive"
-
-      # To avoid code change in git when refreshing the "sample" project
-      - name: Preserve the ArkanaKeys
-        run: mv -f ./sample/ios/ArkanaKeys ../
-
-      - name: Remove the old sample project
-        run: rm -rf sample
-
-      - name: Generate the new sample project
-        run: ./make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0
-
-      - name: Restore the previous ArkanaKeys's keys
-        run: |
-          rm -rf ./sample/ios/ArkanaKeys
-          mv -f ../ArkanaKeys ./sample/ios
-
-      - id: changes
-        name: Check for changes in the sample project
-        run: |
-          count=$(git status sample --porcelain | wc -l)
-          echo "count=$count" >> $GITHUB_OUTPUT
-
-      - name: Commit & push the sample project changes
-        if: steps.changes.outputs.count > 0
-        run: |
-          git config user.name team-nimblehq
-          git config user.email bot@nimblehq.co
-          git add sample
-          git commit -m "[Chore] Generate & update sample project"
-          git push
