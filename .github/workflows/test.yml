@@ -64,7 +64,7 @@ jobs:
           fetch-depth: 100
           submodules: "recursive"
 
-      - name: Set up JDK
+      - name: Set up Java JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
@@ -104,7 +104,7 @@ jobs:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bundle install
-          bundle exec danger
+          bundle exec danger --danger_id=danger_android
 
   ios_test:
     needs: [generate_sample]
@@ -129,10 +129,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v2.1.0
+      - name: Set up Java JDK
+        uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Bundle install
@@ -170,4 +170,4 @@ jobs:
       - name: Run Danger to wrap up the review
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+        run: bundle exec danger --danger_id=danger_ios
