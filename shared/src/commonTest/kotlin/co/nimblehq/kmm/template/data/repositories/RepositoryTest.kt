@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.data.repository
+package co.nimblehq.kmm.template.data.repositories
 
 import app.cash.turbine.test
 import co.nimblehq.kmm.template.data.remote.datasources.UserRemoteDataSource

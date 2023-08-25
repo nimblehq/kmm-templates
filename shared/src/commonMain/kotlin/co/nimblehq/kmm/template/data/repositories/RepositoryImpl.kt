@@ -1,8 +1,8 @@
-package co.nimblehq.kmm.template.data.repository
+package co.nimblehq.kmm.template.data.repositories
 
 import co.nimblehq.kmm.template.data.extensions.flowTransform
 import co.nimblehq.kmm.template.data.remote.datasources.UserRemoteDataSource
-import co.nimblehq.kmm.template.data.remote.model.response.toModel
+import co.nimblehq.kmm.template.data.remote.model.responses.toModel
 import co.nimblehq.kmm.template.domain.model.UserModel
 import co.nimblehq.kmm.template.domain.repositories.Repository
 import kotlinx.coroutines.flow.Flow

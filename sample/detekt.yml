@@ -173,7 +173,7 @@ naming:
     minimumFunctionNameLength: 3
   FunctionNaming:
     active: true
-    functionPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    functionPattern: '^([a-z$][a-zA-Z$0-9]*)|(`.*`)$'
     ignoreAnnotated: [ 'Composable' ]
   MatchingDeclarationName:
     active: true

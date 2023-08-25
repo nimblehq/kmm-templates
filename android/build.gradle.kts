@@ -1,10 +1,12 @@
+import org.jetbrains.kotlin.konan.properties.loadProperties
+
 plugins {
     id(Plugins.ANDROID_APPLICATION)
     id(Plugins.KOVER)
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = rootDir.loadGradleProperties("signing.properties")
+val keystoreProperties = loadProperties("$rootDir/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -100,7 +102,7 @@ dependencies {
         implementation(COMPOSE)
     }
 
-    with(Dependencies.Logging) {
+    with(Dependencies.Log) {
         implementation(TIMBER)
     }
 

@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.data.remote.model.response
+package co.nimblehq.kmm.template.data.remote.model.responses
 
 import co.nimblehq.kmm.template.domain.model.UserModel
 import kotlinx.serialization.SerialName

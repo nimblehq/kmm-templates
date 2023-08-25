@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+import org.jetbrains.kotlin.konan.properties.loadProperties
 
 plugins {
     kotlin(Plugins.MULTIPLATFORM)
@@ -58,7 +59,7 @@ kotlin {
                     implementation(AUTH)
                 }
 
-                implementation(Dependencies.Logging.NAPIER)
+                implementation(Dependencies.Log.NAPIER)
             }
         }
         val commonTest by getting {
@@ -73,13 +74,14 @@ kotlin {
                 }
             }
         }
+
         val androidMain by getting {
             dependencies {
                 implementation(Dependencies.Koin.ANDROID)
-                implementation(Dependencies.Koin.COMPOSE)
                 implementation(Dependencies.Ktor.ANDROID)
             }
         }
+        val androidUnitTest by getting
 
         val iosX64Main by getting
         val iosArm64Main by getting
@@ -93,6 +95,7 @@ kotlin {
                 implementation(Dependencies.Ktor.IOS)
             }
         }
+        val iosTest by getting
     }
 }
 
@@ -122,7 +125,7 @@ android {
     }
 }
 
-val buildKonfigProperties = rootDir.loadGradleProperties("buildKonfig.properties")
+val buildKonfigProperties = loadProperties("$rootDir/buildKonfig.properties")
 buildkonfig {
     packageName = "co.nimblehq.kmm.template"
 

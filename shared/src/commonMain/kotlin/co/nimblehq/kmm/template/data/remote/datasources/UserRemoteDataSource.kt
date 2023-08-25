@@ -1,6 +1,6 @@
 package co.nimblehq.kmm.template.data.remote.datasources
 
-import co.nimblehq.kmm.template.data.remote.model.response.UserResponse
+import co.nimblehq.kmm.template.data.remote.model.responses.UserResponse
 import co.nimblehq.kmm.template.data.remote.ApiClient
 
 interface UserRemoteDataSource {

@@ -16,6 +16,7 @@ object Versions {
 
     const val GRADLE = "8.0.2"
 
+    const val JSON_API = "0.1.0"
     const val JUNIT = "4.13.2"
 
     const val KOIN = "3.3.2"
@@ -41,11 +42,6 @@ object Versions {
 }
 
 object Dependencies {
-    object Gradle {
-        const val BUILD_KONFIG = "com.codingfeline.buildkonfig:buildkonfig-gradle-plugin:${Versions.BUILD_KONFIG}"
-
-        const val GRADLE = "com.android.tools.build:gradle:${Versions.GRADLE}"
-    }
 
     object AndroidX {
         const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE}"
@@ -70,11 +66,6 @@ object Dependencies {
         const val COMPOSE = "io.insert-koin:koin-androidx-compose:${Versions.KOIN_ANDROIDX_COMPOSE}"
     }
 
-    object Kotlin {
-        const val KOTLIN_GRADLE_PLUGIN = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
-        const val KOTLIN_SERIALIZATION = "org.jetbrains.kotlin:kotlin-serialization:${Versions.KOTLIN}"
-    }
-
     object Ktor {
         const val ANDROID = "io.ktor:ktor-client-android:${Versions.KTOR}"
         const val AUTH = "io.ktor:ktor-client-auth:${Versions.KTOR}"
@@ -90,6 +81,11 @@ object Dependencies {
         const val LOGGING = "io.ktor:ktor-client-logging:${Versions.KTOR}"
 
         const val SERIALIZATION = "io.ktor:ktor-client-serialization:${Versions.KTOR}"
+    }
+
+    object Log {
+        const val NAPIER = "io.github.aakira:napier:${Versions.NAPIER}"
+        const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     }
 
     object Test {
@@ -110,10 +106,5 @@ object Dependencies {
         const val ROBOLECTRIC = "org.robolectric:robolectric:${Versions.ROBOLECTRIC}"
 
         const val TURBINE = "app.cash.turbine:turbine:${Versions.TURBINE}"
-    }
-
-    object Logging {
-        const val NAPIER = "io.github.aakira:napier:${Versions.NAPIER}"
-        const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     }
 }

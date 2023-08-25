@@ -21,12 +21,12 @@ class GetUsersUseCaseTest {
     private lateinit var useCase: GetUsersUseCase
 
     @BeforeTest
-    fun setup() {
+    fun setUp() {
         useCase = GetUsersUseCaseImpl(mockRepository)
     }
 
     @Test
-    fun `When calling getUsersUseCase successfully - it returns users`() = runTest {
+    fun `When calling getUsers successfully - it returns users`() = runTest {
         given(mockRepository)
             .function(mockRepository::getUsers)
             .whenInvoked()
@@ -39,7 +39,7 @@ class GetUsersUseCaseTest {
     }
 
     @Test
-    fun `when calling getUsersUseCase fails - it throws the corresponding error`() = runTest {
+    fun `when calling getUsers fails - it throws the corresponding error`() = runTest {
         val throwable = Throwable()
         given(mockRepository)
             .function(mockRepository::getUsers)
