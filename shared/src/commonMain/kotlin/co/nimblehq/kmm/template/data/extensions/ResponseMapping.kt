@@ -7,5 +7,11 @@ import kotlin.experimental.ExperimentalTypeInference
 fun <T> flowTransform(@BuilderInference block: suspend FlowCollector<T>.() -> T) = flow {
     runCatching { block() }
         .onSuccess { emit(it) }
-        .onFailure { throw it}
+        .onFailure { throw it.mapError()}
 }
+
+private fun Throwable.mapError(): Throwable =
+    when (this) {
+        // TODO catch custom errors
+        else -> this
+    }

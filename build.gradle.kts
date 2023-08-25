@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.konan.properties.loadProperties
-
 plugins {
     //trick: for the same plugin versions in all sub-modules
     id(Plugins.ANDROID_APPLICATION) version Versions.GRADLE apply (false)
@@ -11,15 +9,6 @@ plugins {
     kotlin(Plugins.ANDROID) version Versions.KOTLIN apply (false)
     kotlin(Plugins.MULTIPLATFORM) version Versions.KOTLIN apply (false)
     kotlin(Plugins.KOTLIN_SERIALIZATION) version Versions.KOTLIN
-}
-
-allprojects {
-    val buildProperties = loadProperties("$rootDir/buildKonfig.properties")
-    repositories {
-        google()
-        mavenCentral()
-        maven { url = uri("https://jitpack.io") }
-    }
 }
 
 detekt {

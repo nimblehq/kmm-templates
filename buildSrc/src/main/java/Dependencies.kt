@@ -16,7 +16,6 @@ object Versions {
 
     const val GRADLE = "8.0.2"
 
-    const val JSON_API = "0.1.0"
     const val JUNIT = "4.13.2"
 
     const val KOIN = "3.3.2"
