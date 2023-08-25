@@ -1,5 +1,4 @@
+/build
+
 # Google services
 google-services.json
-
-# Keystore
-config/release.keystore

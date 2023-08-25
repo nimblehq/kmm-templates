@@ -1,5 +1,6 @@
 package co.nimblehq.kmm.template.test
 
+import co.nimblehq.kmm.template.util.DispatchersProvider
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.rules.TestWatcher
@@ -7,16 +8,26 @@ import org.junit.runner.Description
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CoroutineTestRule(
-    private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()
+    var testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
 ) : TestWatcher() {
 
-    override fun starting(description: Description?) {
-        super.starting(description)
+    val testDispatcherProvider = object : DispatchersProvider {
+
+        override val io: CoroutineDispatcher
+            get() = testDispatcher
+
+        override val main: CoroutineDispatcher
+            get() = testDispatcher
+
+        override val default: CoroutineDispatcher
+            get() = testDispatcher
+    }
+
+    override fun starting(description: Description) {
         Dispatchers.setMain(testDispatcher)
     }
 
-    override fun finished(description: Description?) {
-        super.finished(description)
+    override fun finished(description: Description) {
         Dispatchers.resetMain()
     }
 }

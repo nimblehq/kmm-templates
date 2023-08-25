@@ -19,6 +19,15 @@ jobs:
           ref: ${{ github.head_ref }}
           submodules: "recursive"
 
+      - name: Install Kscript
+        run: |
+          curl -s "https://get.sdkman.io" | bash
+          source "$HOME/.sdkman/bin/sdkman-init.sh"
+          source android/version.properties
+          sdk install kotlin $kotlinVersion
+          sdk install kscript $kscriptVersion
+          echo $PATH >> $GITHUB_PATH
+
       # To avoid code change in git when refreshing the "sample" project
       - name: Preserve the ArkanaKeys
         run: mv -f ./sample/ios/ArkanaKeys ../
