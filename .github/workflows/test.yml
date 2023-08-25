@@ -53,17 +53,25 @@ jobs:
         run: bundle exec danger
 
   ios_test:
-    name: Running tests in iOS
+    name: Running iOS tests
     runs-on: macos-latest
     defaults:
       run:
         working-directory: ./sample/ios
     steps:
-      - uses: actions/checkout@v3
-      - uses: ruby/setup-ruby@v1
+      - name: Check out
+        uses: actions/checkout@v3
         with:
-          ruby-version: '3.2'
-          bundler-cache: true
+          submodules: recursive
+
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: bunlderCache
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
 
       - name: Setup Java JDK
         uses: actions/setup-java@v2.1.0
@@ -107,15 +115,10 @@ jobs:
       - name: Clean up previous code coverage report
         run: bundle exec fastlane cleanUpOutput
 
-      - name: Review pull request by Danger
-        uses: MeilCli/danger-action@v5
-        with:
-          plugins_file: 'sample/ios/Gemfile'
-          install_path: 'sample/ios/vendor/bundle'
-          danger_file: 'sample/ios/Dangerfile'
-          danger_id: 'danger-pr'
+      - name: Run Danger to wrap up the review
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger
 
   generate_sample_project:
     # The job "generate_sample_project" identify that the job "test" must complete successfully
