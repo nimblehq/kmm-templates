@@ -4,8 +4,11 @@ plugins {
     id(Plugins.ANDROID_LIBRARY) version Versions.GRADLE apply (false)
     id(Plugins.DETEKT) version Versions.DETEKT
     id(Plugins.KOVER) version Versions.KOVER
+    id(Plugins.KSP) version Versions.KSP
+    id(Plugins.BUILD_KONFIG) version Versions.BUILD_KONFIG apply (false)
     kotlin(Plugins.ANDROID) version Versions.KOTLIN apply (false)
     kotlin(Plugins.MULTIPLATFORM) version Versions.KOTLIN apply (false)
+    kotlin(Plugins.KOTLIN_SERIALIZATION) version Versions.KOTLIN
 }
 
 detekt {

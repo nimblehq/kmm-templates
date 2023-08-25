@@ -6,7 +6,7 @@ plugins {
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = loadProperties("signing.properties")
+val keystoreProperties = loadProperties("$rootDir/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
@@ -73,11 +73,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = Versions.JVM_TARGET
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 }
 
