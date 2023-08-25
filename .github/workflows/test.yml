@@ -52,10 +52,82 @@ jobs:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.DANGER_GITHUB_API_TOKEN }}
         run: bundle exec danger
 
+  ios_test:
+    name: Running iOS tests
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: ./sample/ios
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set up cache
+        uses: actions/cache@v3
+        id: bunlderCache
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v2.1.0
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Remove the old sample project
+        run: rm -rf sample
+        working-directory: ./
+
+      - name: Generate the new sample project
+        run: sh make.sh --bundle-id co.nimble.kmm.sample --bundle-id-staging co.nimble.kmm.sample.staging --project-name sample --ios-version 14.0
+        working-directory: ./
+
+      - name: Bundle install
+        run: bundle install
+
+      - name: Cache Pods
+        uses: actions/cache@v3
+        id: cocoapodCache
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Decode buildKonfig properties
+        working-directory: ./sample
+        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
+
+      - name: Generate KMM frameworks for Cocoapods
+        run: |
+          cd ..
+          ./gradlew generateDummyFramework
+
+      - name: Install Pods Dependencies
+        run: bundle exec pod install
+
+      - name: Build and Test
+        run: bundle exec fastlane buildAndTest
+        env:
+          CI: true
+
+      - name: Clean up previous code coverage report
+        run: bundle exec fastlane cleanUpOutput
+
+      - name: Run Danger to wrap up the review
+        env:
+          DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger
+
   generate_sample_project:
     # The job "generate_sample_project" identify that the job "test" must complete successfully
     # before this "generate_sample_project" job will run
-    needs: test
+    needs: [test, ios_test]
     name: Generate the sample project
     runs-on: macos-latest
     timeout-minutes: 30

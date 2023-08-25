@@ -39,6 +39,10 @@ cd ios
 echo "=> Removing unnecessary files and folders"
 rm -rf {PROJECT_NAME}/sources/data
 
+# Bypass this bug in iOS Template: https://github.com/nimblehq/ios-templates/issues/307
+rm -f {PROJECT_NAME}KIFUITests/Sources/Specs/Application/ApplicationSpec.swift
+rm -f {PROJECT_NAME}Tests/Sources/Specs/Supports/Extensions/Foundation/OptionalUnwrapSpec.swift
+
 # Because iOS-template is a submodule of the KKM-template, there is no .git directory.
 sed -i '' "/rm -f .git*/d" make.sh
 
@@ -62,6 +66,9 @@ line_number=$(grep -n -i "# Development" podfile | cut -f1 -d:)
 sed -i '' "$(($line_number + 1))i\\"$'\n'"\
   pod 'shared', :path => '../shared'\\
 " podfile
+
+# Correct path in Dangerfile
+sed -i '' "s/require '\.\/fastlane\/Constants\/Constants'//g" dangerfile
 
 echo "=> Remove unnecessary files after generating the iOS module"
 rm -rf .github

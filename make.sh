@@ -101,6 +101,7 @@ fi
 sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
 rm -rf make_ios.sh
 rm -rf make.sh
+
 # =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
 # TODO: Fully generate the KMM project later
 #
@@ -110,5 +111,5 @@ rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
     --exclude 'make.sh' \
-    --exclude 'sample' \
+    --exclude './sample' \
     ./ sample/
