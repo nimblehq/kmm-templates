@@ -77,7 +77,6 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(Dependencies.Koin.ANDROID)
                 implementation(Dependencies.Ktor.ANDROID)
             }
         }
