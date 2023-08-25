@@ -6,7 +6,7 @@ plugins {
     kotlin(Plugins.ANDROID)
 }
 
-val keystoreProperties = loadProperties("signing.properties")
+val keystoreProperties = loadProperties("$rootDir/signing.properties")
 
 android {
     namespace = "co.nimblehq.kmm.template.android"
