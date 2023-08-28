@@ -56,7 +56,7 @@ PODS:
   - KIF/Core (3.8.9)
   - KIF/IdentifierTests (3.8.9):
     - KIF/Core
-  - Kingfisher (7.9.0)
+  - Kingfisher (7.9.1)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -195,7 +195,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   KIF: 7660c626b0f2d4562533590960db70a36d640558
-  Kingfisher: 59f908b6d2f403b0a3e539debb0eec05cb27002c
+  Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
   NimbleExtension: acad4290f27afd4241b1ea20f8597889085e2ce7
