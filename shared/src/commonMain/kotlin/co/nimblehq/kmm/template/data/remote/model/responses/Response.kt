@@ -1,12 +1,12 @@
 package co.nimblehq.kmm.template.data.remote.model.responses
 
-import co.nimblehq.kmm.template.domain.model.UserModel
+import co.nimblehq.kmm.template.domain.models.Model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserResponse(
+data class Response(
     @SerialName("id") val id: Int?
 )
 
-fun UserResponse.toModel() = UserModel(id)
+fun Response.toModel() = Model(id)
