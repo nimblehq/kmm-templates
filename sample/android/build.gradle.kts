@@ -125,8 +125,7 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.DATA))
-    implementation(project(Modules.DOMAIN))
+    implementation(project(Modules.SHARED))
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
@@ -180,8 +179,7 @@ dependencies {
  * Kover configs
  */
 dependencies {
-    kover(project(Modules.DATA))
-    kover(project(Modules.DOMAIN))
+    kover(project(Modules.SHARED))
 }
 
 koverReport {
