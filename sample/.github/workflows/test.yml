@@ -19,7 +19,8 @@ jobs:
           ref: ${{ github.head_ref }}
           submodules: "recursive"
 
-      - name: Preserve the ArkanaKeys (avoid code change in git when refreshing the "sample" project)
+      # To avoid code change in git when refreshing the "sample" project
+      - name: Preserve the ArkanaKeys
         run: mv -f ./sample/ios/ArkanaKeys ../
 
       - name: Remove the old sample project
@@ -63,7 +64,7 @@ jobs:
           fetch-depth: 100
           submodules: "recursive"
 
-      - name: Set up JDK
+      - name: Set up Java JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
@@ -103,7 +104,7 @@ jobs:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           bundle install
-          bundle exec danger
+          bundle exec danger --danger_id=danger_android
 
   ios_test:
     needs: [generate_sample]
@@ -128,10 +129,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v2.1.0
+      - name: Set up Java JDK
+        uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
+          distribution: 'temurin'
           java-version: '17'
 
       - name: Bundle install
@@ -166,7 +167,15 @@ jobs:
       - name: Clean up previous code coverage report
         run: bundle exec fastlane cleanUpOutput
 
+      - name: __Workaround__ Running Danger SwiftFormat from non-root directory
+        run: |
+          # Find the path of danger_swiftformat
+          danger_swiftformat_path=$(echo "$(gem which danger_swiftformat)" | sed 's/\/danger_swiftformat.rb//')
+          echo $danger_swiftformat_path
+          # Insert a map operator in the "find_swift_files" method to remove "sample/ios/" prefix from all files.
+          sed -i '' "s/.uniq/.uniq.map { |file| file.partition('sample\/ios\/').last }/g" "$danger_swiftformat_path/swiftformat/plugin.rb"
+
       - name: Run Danger to wrap up the review
         env:
           DANGER_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+        run: bundle exec danger --danger_id=danger_ios
