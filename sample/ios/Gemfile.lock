@@ -20,7 +20,7 @@ GEM
     artifactory (3.0.15)
     atomos (0.1.3)
     aws-eventstream (1.2.0)
-    aws-partitions (1.811.0)
+    aws-partitions (1.812.0)
     aws-sdk-core (3.181.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
@@ -202,7 +202,7 @@ GEM
     git (1.18.0)
       addressable (~> 2.8)
       rchardet (~> 1.8)
-    google-apis-androidpublisher_v3 (0.48.0)
+    google-apis-androidpublisher_v3 (0.49.0)
       google-apis-core (>= 0.11.0, < 2.a)
     google-apis-core (0.11.1)
       addressable (~> 2.5, >= 2.5.1)
@@ -358,4 +358,4 @@ DEPENDENCIES
   xcov
 
 BUNDLED WITH
-   2.4.19
+   2.4.18
