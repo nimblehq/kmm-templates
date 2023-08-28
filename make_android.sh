@@ -38,4 +38,18 @@ sed -i '' 's/Modules.DATA/Modules.SHARED/' sample/app/build.gradle.kts
 sed -i '' "/implementation(project(Modules.DOMAIN))*/d" sample/app/build.gradle.kts
 sed -i '' "/kover(project(Modules.DOMAIN))*/d" sample/app/build.gradle.kts
 
+# Correct imports
+sed -i '' 's/import co.nimblehq.kmm.template.data.di.initKoin/import co.nimblehq.kmm.template.di.initKoin/' sample/app/src/main/java/co/nimblehq/kmm/template/MainApplication.kt
+
+# Correct error mapping
+sed -i '' 's/is ApiException -> error?.message/is ApiException -> message/' sample/app/src/main/java/co/nimblehq/kmm/template/ui/ErrorMapping.kt
+
+# Remove unnecessary definition of BASE_API_URL
+sed -i '' "/import co.nimblehq.kmm.template.BuildConfig*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
+sed -i '' "/import co.nimblehq.kmm.template.data.di.modules.BASE_API_URL*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
+sed -i '' "/import org.koin.core.qualifier.named*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
+sed -i '' "/    single(named(BASE_API_URL)) {\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
+sed -i '' "/        BuildConfig.BASE_API_URL\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
+sed -i '' "/    }\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
+
 cd ..
