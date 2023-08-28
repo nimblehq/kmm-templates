@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (5.7.1)
   - ArkanaKeys (1.0.0):
     - ArkanaKeysInterfaces (~> 1.0.0)
   - ArkanaKeysInterfaces (1.0.0)
@@ -57,7 +56,7 @@ PODS:
   - KIF/Core (3.8.9)
   - KIF/IdentifierTests (3.8.9):
     - KIF/Core
-  - Kingfisher (7.9.0)
+  - Kingfisher (7.9.1)
   - nanopb (2.30909.0):
     - nanopb/decode (= 2.30909.0)
     - nanopb/encode (= 2.30909.0)
@@ -70,11 +69,6 @@ PODS:
     - PromisesObjC (= 2.3.1)
   - Quick (7.2.0)
   - R.swift (7.3.2)
-  - RxAlamofire (6.1.1):
-    - RxAlamofire/Core (= 6.1.1)
-  - RxAlamofire/Core (6.1.1):
-    - Alamofire (~> 5.4)
-    - RxSwift (~> 6.0)
   - RxBlocking (6.5.0):
     - RxSwift (= 6.5.0)
   - RxCocoa (6.5.0):
@@ -121,7 +115,6 @@ DEPENDENCIES:
   - NimbleExtension (from `https://github.com/nimblehq/NimbleExtension`, branch `master`)
   - Quick
   - R.swift
-  - RxAlamofire
   - RxCocoa
   - RxDataSources
   - RxNimble/RxBlocking
@@ -136,7 +129,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - Differentiator
     - Factory
     - Firebase
@@ -158,7 +150,6 @@ SPEC REPOS:
     - PromisesSwift
     - Quick
     - R.swift
-    - RxAlamofire
     - RxBlocking
     - RxCocoa
     - RxDataSources
@@ -188,7 +179,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/nimblehq/NimbleExtension
 
 SPEC CHECKSUMS:
-  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   ArkanaKeys: 356555f467c55ae40ba074c1b4d9cb5c38a55f3d
   ArkanaKeysInterfaces: 81d21923368b058e2b6fd932ec96855166ef6d19
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
@@ -205,7 +195,7 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   KIF: 7660c626b0f2d4562533590960db70a36d640558
-  Kingfisher: 59f908b6d2f403b0a3e539debb0eec05cb27002c
+  Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   Nimble: 5316ef81a170ce87baf72dd961f22f89a602ff84
   NimbleExtension: acad4290f27afd4241b1ea20f8597889085e2ce7
@@ -213,7 +203,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   Quick: 73ac215f23a6a0eaa59f4ee142802b3f4dba86bb
   R.swift: 0af0d882f49f03711415cb4e5215daa977d8a480
-  RxAlamofire: beb75a1c452d0de225651db4903f5d29d034a620
   RxBlocking: 04b5fd28bb5ea49f7d64b80db8bbfe50d9cc1c7d
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
@@ -228,6 +217,6 @@ SPEC CHECKSUMS:
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
   xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
 
-PODFILE CHECKSUM: 5233b086e0f5d1a72122803b9528f7837bf47189
+PODFILE CHECKSUM: 85d4cae5e270d7a65db55a5c553c6c13b91a7b7f
 
 COCOAPODS: 1.12.1
