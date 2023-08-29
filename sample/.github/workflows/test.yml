@@ -61,10 +61,9 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
         with:
-          fetch-depth: 100
           submodules: "recursive"
 
-      - name: Set up Java JDK
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
@@ -117,7 +116,6 @@ jobs:
       - name: Check out
         uses: actions/checkout@v3
         with:
-          fetch-depth: 100
           submodules: "recursive"
 
       - name: Set up cache
@@ -129,7 +127,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gems-
 
-      - name: Set up Java JDK
+      - name: Set up JDK
         uses: actions/setup-java@v2
         with:
           distribution: 'temurin'
