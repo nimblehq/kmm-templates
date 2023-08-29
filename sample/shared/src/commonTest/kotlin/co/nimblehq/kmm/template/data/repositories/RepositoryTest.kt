@@ -1,10 +1,10 @@
 package co.nimblehq.kmm.template.data.repositories
 
 import app.cash.turbine.test
-import co.nimblehq.kmm.template.data.remote.datasources.UserRemoteDataSource
+import co.nimblehq.kmm.template.data.remote.datasources.RemoteDataSource
 import co.nimblehq.kmm.template.domain.repositories.Repository
-import co.nimblehq.kmm.template.util.Fake.user
-import co.nimblehq.kmm.template.util.Fake.userResponse
+import co.nimblehq.kmm.template.util.Fake.model
+import co.nimblehq.kmm.template.util.Fake.response
 import io.kotest.matchers.shouldBe
 import io.mockative.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,24 +16,24 @@ import kotlin.test.Test
 class RepositoryTest {
 
     @Mock
-    private val mockUserRemoteDataSource = mock(UserRemoteDataSource::class)
+    private val mockRemoteDataSource = mock(RemoteDataSource::class)
 
     private lateinit var repository: Repository
 
     @BeforeTest
     fun setup() {
-        repository = RepositoryImpl(mockUserRemoteDataSource)
+        repository = RepositoryImpl(mockRemoteDataSource)
     }
 
     @Test
     fun `when calling getUsers successfully - it returns users`() = runTest {
-        given(mockUserRemoteDataSource)
-            .suspendFunction(mockUserRemoteDataSource::getUsers)
+        given(mockRemoteDataSource)
+            .suspendFunction(mockRemoteDataSource::getUsers)
             .whenInvoked()
-            .thenReturn(listOf(userResponse))
+            .thenReturn(listOf(response))
 
         repository.getUsers().test {
-            awaitItem() shouldBe listOf(user)
+            awaitItem() shouldBe listOf(model)
             awaitComplete()
         }
     }
@@ -41,8 +41,8 @@ class RepositoryTest {
     @Test
     fun `when calling getUsers fails - it throws the corresponding error`() = runTest {
         val throwable = Throwable()
-        given(mockUserRemoteDataSource)
-            .suspendFunction(mockUserRemoteDataSource::getUsers)
+        given(mockRemoteDataSource)
+            .suspendFunction(mockRemoteDataSource::getUsers)
             .whenInvoked()
             .thenThrow(throwable)
 

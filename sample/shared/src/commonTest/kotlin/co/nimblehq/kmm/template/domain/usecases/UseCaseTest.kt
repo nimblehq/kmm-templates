@@ -2,7 +2,7 @@ package co.nimblehq.kmm.template.domain.usecases
 
 import app.cash.turbine.test
 import co.nimblehq.kmm.template.domain.repositories.Repository
-import co.nimblehq.kmm.template.util.Fake.user
+import co.nimblehq.kmm.template.util.Fake.model
 import io.kotest.matchers.shouldBe
 import io.mockative.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,33 +13,33 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @ExperimentalCoroutinesApi
-class GetUsersUseCaseTest {
+class UseCaseTest {
 
     @Mock
     private val mockRepository: Repository = mock(Repository::class)
 
-    private lateinit var useCase: GetUsersUseCase
+    private lateinit var useCase: UseCase
 
     @BeforeTest
     fun setUp() {
-        useCase = GetUsersUseCaseImpl(mockRepository)
+        useCase = UseCaseImpl(mockRepository)
     }
 
     @Test
-    fun `When calling getUsers successfully - it returns users`() = runTest {
+    fun `When calling successfully - it returns users`() = runTest {
         given(mockRepository)
             .function(mockRepository::getUsers)
             .whenInvoked()
-            .thenReturn(flowOf(listOf(user)))
+            .thenReturn(flowOf(listOf(model)))
 
         useCase().test {
-            awaitItem() shouldBe listOf(user)
+            awaitItem() shouldBe listOf(model)
             awaitComplete()
         }
     }
 
     @Test
-    fun `when calling getUsers fails - it throws the corresponding error`() = runTest {
+    fun `when calling fails - it throws the corresponding error`() = runTest {
         val throwable = Throwable()
         given(mockRepository)
             .function(mockRepository::getUsers)
