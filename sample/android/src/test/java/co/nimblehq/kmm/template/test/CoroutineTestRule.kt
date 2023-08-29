@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.android.test
+package co.nimblehq.kmm.template.test
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*

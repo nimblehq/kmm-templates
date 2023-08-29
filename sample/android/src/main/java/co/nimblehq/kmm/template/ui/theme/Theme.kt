@@ -1,5 +1,5 @@
 @file:Suppress("MatchingDeclarationName")
-package co.nimblehq.kmm.template.android.ui.theme
+package co.nimblehq.kmm.template.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

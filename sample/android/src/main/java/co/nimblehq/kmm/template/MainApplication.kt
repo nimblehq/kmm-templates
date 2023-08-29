@@ -1,12 +1,12 @@
-package co.nimblehq.kmm.template.android
+package co.nimblehq.kmm.template
 
 import android.app.Application
-import co.nimblehq.kmm.template.android.di.androidViewModelModule
-import co.nimblehq.kmm.template.android.util.LogUtil
+import co.nimblehq.kmm.template.di.androidViewModelModule
+import co.nimblehq.kmm.template.util.LogUtil
 import co.nimblehq.kmm.template.di.initKoin
 import org.koin.android.ext.koin.androidContext
 
-class MyApplication : Application() {
+class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

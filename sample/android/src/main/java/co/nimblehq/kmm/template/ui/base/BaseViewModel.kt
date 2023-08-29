@@ -1,12 +1,12 @@
-package co.nimblehq.kmm.template.android.ui.base
+package co.nimblehq.kmm.template.ui.base
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import co.nimblehq.kmm.template.android.lib.IsLoading
-import co.nimblehq.kmm.template.android.ui.navigation.AppDestination
+import co.nimblehq.kmm.template.lib.IsLoading
+import co.nimblehq.kmm.template.ui.navigation.AppDestination
 
 @Suppress("PropertyName")
 abstract class BaseViewModel : ViewModel() {

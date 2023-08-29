@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.android.di
+package co.nimblehq.kmm.template.di
 
 import org.koin.core.module.Module
 import org.koin.dsl.module
