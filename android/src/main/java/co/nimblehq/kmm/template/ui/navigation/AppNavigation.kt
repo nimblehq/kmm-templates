@@ -1,9 +1,9 @@
-package co.nimblehq.kmm.template.android.ui.navigation
+package co.nimblehq.kmm.template.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.*
-import co.nimblehq.kmm.template.android.ui.screens.home.HomeScreen
+import co.nimblehq.kmm.template.ui.screens.home.HomeScreen
 
 @Composable
 fun AppNavigation(

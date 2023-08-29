@@ -9,10 +9,10 @@ plugins {
 val keystoreProperties = loadProperties("$rootDir/signing.properties")
 
 android {
-    namespace = "co.nimblehq.kmm.template.android"
+    namespace = "co.nimblehq.kmm.template"
     compileSdk = Versions.ANDROID_COMPILE_SDK
     defaultConfig {
-        applicationId = "co.nimblehq.kmm.template.android"
+        applicationId = "co.nimblehq.kmm.template"
         minSdk = Versions.ANDROID_MIN_SDK
         targetSdk = Versions.ANDROID_TARGET_SDK
         versionCode = Versions.ANDROID_VERSION_CODE

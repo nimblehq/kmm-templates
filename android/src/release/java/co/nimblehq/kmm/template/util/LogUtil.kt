@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.android.util
+package co.nimblehq.kmm.template.util
 
 import timber.log.Timber
 

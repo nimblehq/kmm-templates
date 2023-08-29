@@ -1,10 +1,10 @@
-package co.nimblehq.kmm.template.android.ui.screens
+package co.nimblehq.kmm.template.ui.screens
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import co.nimblehq.kmm.template.android.ui.navigation.AppNavigation
-import co.nimblehq.kmm.template.android.ui.theme.ComposeTheme
+import co.nimblehq.kmm.template.ui.navigation.AppNavigation
+import co.nimblehq.kmm.template.ui.theme.ComposeTheme
 
 class MainActivity : ComponentActivity() {
 

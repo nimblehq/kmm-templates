@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.android.ui.navigation
+package co.nimblehq.kmm.template.ui.navigation
 
 import androidx.navigation.NamedNavArgument
 
