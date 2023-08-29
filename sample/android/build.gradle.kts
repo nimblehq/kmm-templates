@@ -57,14 +57,12 @@ android {
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             signingConfig = signingConfigs[BuildTypes.RELEASE]
-            buildConfigField("String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\"")
         }
 
         debug {
             // For quickly testing build with proguard, enable this
             isMinifyEnabled = false
             signingConfig = signingConfigs[BuildTypes.DEBUG]
-            buildConfigField("String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\"")
         }
     }
 
@@ -181,20 +179,22 @@ dependencies {
 koverReport {
     defaults {
         mergeWith("stagingDebug")
-        filters {
-            val excludedFiles = listOf(
-                "*.BuildConfig.*",
-                "*.BuildConfig",
-                // Enum
-                "*.*\$Creator*",
-                // DI
-                "*.di.*",
-                // Jetpack Compose
-                "*.ComposableSingletons*",
-                "*.*\$*Preview\$*",
-                "*.ui.preview.*",
-            )
 
+        val excludedFiles = listOf(
+            "io.mockative.*",
+            "*.BuildConfig",
+            "*.BuildKonfig",                        // BuildKonfig generated
+            "*.ComposableSingletons*",              // Jetpack Compose generated
+            "*.*\$*Preview\$*",                     // Jetpack Compose Preview functions
+            "*.di.*",                               // Koin
+            "*.ui.preview.*",                       // Jetpack Compose Preview providers
+            "*.*Test",                              // Test files
+            "*.*Test*",                             // Test cases
+            "*.*Mock",                              // mockative @Mock generated
+            "*.test.*",                             // Test util package
+            "*.*\$\$serializer",                    // Kotlinx serializer
+        )
+        filters {
             excludes {
                 classes(excludedFiles)
             }
