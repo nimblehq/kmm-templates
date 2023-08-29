@@ -125,3 +125,4 @@ rsync -av \
     --exclude '/android' \
     --exclude '/sample' \
     ./ sample/
+rsync -av ./android/sample/app/ sample/android/

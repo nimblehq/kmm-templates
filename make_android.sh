@@ -53,10 +53,34 @@ sed -i '' "/    single(named(BASE_API_URL)) {\n*/d" sample/app/src/main/java/co/
 sed -i '' "/        BuildConfig.BASE_API_URL\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
 sed -i '' "/    }\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
 
-# Clone project files to the "sample" directory
-rsync -av ./sample/app/ ../sample/android/
+# Overwrite custom files
+rsync -av ../custom/android/ sample/app/
 
-# Overwrite custom files to the "sample" directory
-rsync -av ../custom/android/ ../sample/android/
+# Overwrite the Kover config for KMM
+perl -i -p0e 's/koverReport (.|\n)*}$/koverReport {\
+    defaults {\
+        mergeWith("stagingDebug")\
+\
+        val excludedFiles = listOf(\
+            "io.mockative.*",\
+            "*.BuildConfig",\
+            "*.BuildKonfig",                        \/\/ BuildKonfig generated\
+            "*.ComposableSingletons*",              \/\/ Jetpack Compose generated\
+            "*.*\\\$*Preview\\\$*",                     \/\/ Jetpack Compose Preview functions\
+            "*.di.*",                               \/\/ Koin\
+            "*.ui.preview.*",                       \/\/ Jetpack Compose Preview providers\
+            "*.*Test",                              \/\/ Test files\
+            "*.*Test*",                             \/\/ Test cases\
+            "*.*Mock",                              \/\/ mockative \@Mock generated\
+            "*.test.*",                             \/\/ Test util package\
+            "*.*\\\$\\\$serializer",                    \/\/ Kotlinx serializer\
+        )\
+        filters {\
+            excludes {\
+                classes(excludedFiles)\
+            }\
+        }\
+    }\
+}/g' sample/app/build.gradle.kts
 
 cd ..
