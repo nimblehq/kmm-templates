@@ -52,4 +52,10 @@ sed -i '' "/    single(named(BASE_API_URL)) {\n*/d" sample/app/src/main/java/co/
 sed -i '' "/        BuildConfig.BASE_API_URL\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
 sed -i '' "/    }\n*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
 
+# Clone project files to the "sample" directory
+rsync -av ./sample/app/ ../sample/android/
+
+# Overwrite custom files to the "sample" directory
+rsync -av ../custom/android/ ../sample/android/
+
 cd ..

@@ -97,6 +97,16 @@ if ! [[ $minimum_ios_version =~ $version_regex ]]; then
     minimum_ios_version="14.0"
 fi
 
+# Reset all git submodules changes
+cd ios
+git add .
+git reset --hard
+cd ..
+cd android
+git add .
+git reset --hard
+cd ..
+
 # Generate iOS module
 sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
 
@@ -111,17 +121,7 @@ rsync -av \
     --exclude 'make.sh' \
     --exclude 'make_android.sh' \
     --exclude 'make_ios.sh' \
+    --exclude '/custom' \
     --exclude '/android' \
     --exclude '/sample' \
     ./ sample/
-rsync -av ./android/sample/app/ sample/android/
-
-# Reset all git submodules
-cd ios
-git add .
-git reset --hard
-cd ..
-cd android
-git add .
-git reset --hard
-cd ..
