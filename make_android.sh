@@ -45,6 +45,7 @@ sed -i '' 's/import co.nimblehq.kmm.template.data.di.initKoin/import co.nimblehq
 sed -i '' 's/is ApiException -> error?.message/is ApiException -> message/' sample/app/src/main/java/co/nimblehq/kmm/template/ui/ErrorMapping.kt
 
 # Remove unnecessary definition of BASE_API_URL
+sed -i '' "/buildConfigField(\"String\", \"BASE_API_URL\"*/d" sample/app/build.gradle.kts
 sed -i '' "/import co.nimblehq.kmm.template.BuildConfig*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
 sed -i '' "/import co.nimblehq.kmm.template.data.di.modules.BASE_API_URL*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
 sed -i '' "/import org.koin.core.qualifier.named*/d" sample/app/src/main/java/co/nimblehq/kmm/template/di/modules/AppModule.kt
