@@ -1,6 +1,6 @@
 package co.nimblehq.kmm.template.test
 
-import co.nimblehq.kmm.template.domain.model.Model
+import co.nimblehq.kmm.template.domain.models.Model
 
 object MockUtil {
 

@@ -7,7 +7,7 @@ import co.nimblehq.kmm.template.extensions.showToast
 
 fun Throwable.userReadableMessage(context: Context): String {
     return when (this) {
-        is ApiException -> error?.message
+        is ApiException -> message
         else -> message
     } ?: context.getString(R.string.error_generic)
 }

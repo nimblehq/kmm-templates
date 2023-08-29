@@ -19,6 +19,7 @@ val getVersionCode: () -> Int = {
 android {
     namespace = "co.nimblehq.kmm.template"
     compileSdk = Versions.ANDROID_COMPILE_SDK
+
     defaultConfig {
         applicationId = "co.nimblehq.kmm.template"
         minSdk = Versions.ANDROID_MIN_SDK
@@ -80,10 +81,6 @@ android {
         srcDir("src/test/resources")
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -133,7 +130,6 @@ dependencies {
         implementation(CORE_KTX)
         implementation(LIFECYCLE_RUNTIME_KTX)
         implementation(LIFECYCLE_RUNTIME_COMPOSE)
-        implementation(DATASTORE_PREFERENCES)
     }
 
     with(Dependencies.Compose) {

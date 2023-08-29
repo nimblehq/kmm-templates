@@ -5,7 +5,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import co.nimblehq.kmm.template.R
-import co.nimblehq.kmm.template.domain.usecase.UseCase
+import co.nimblehq.kmm.template.domain.usecases.UseCase
 import co.nimblehq.kmm.template.test.MockUtil
 import co.nimblehq.kmm.template.ui.AppDestination
 import co.nimblehq.kmm.template.ui.screens.BaseScreenTest

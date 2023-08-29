@@ -12,8 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.nimblehq.kmm.template.R
 import co.nimblehq.kmm.template.extensions.collectAsEffect
-import co.nimblehq.kmm.template.model.UiModel
 import co.nimblehq.kmm.template.ui.AppDestination
+import co.nimblehq.kmm.template.ui.models.UiModel
 import co.nimblehq.kmm.template.ui.showToast
 import co.nimblehq.kmm.template.ui.theme.AppTheme.dimensions
 import co.nimblehq.kmm.template.ui.theme.ComposeTheme

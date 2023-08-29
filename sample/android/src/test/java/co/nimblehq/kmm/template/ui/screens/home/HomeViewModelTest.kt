@@ -1,10 +1,10 @@
 package co.nimblehq.kmm.template.ui.screens.home
 
 import app.cash.turbine.test
-import co.nimblehq.kmm.template.domain.usecase.UseCase
-import co.nimblehq.kmm.template.model.toUiModel
+import co.nimblehq.kmm.template.domain.usecases.UseCase
 import co.nimblehq.kmm.template.test.CoroutineTestRule
 import co.nimblehq.kmm.template.test.MockUtil
+import co.nimblehq.kmm.template.ui.models.toUiModel
 import co.nimblehq.kmm.template.util.DispatchersProvider
 import io.kotest.matchers.shouldBe
 import io.mockk.every
