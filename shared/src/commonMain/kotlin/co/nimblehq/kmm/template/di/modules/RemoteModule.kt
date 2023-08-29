@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.di.module
+package co.nimblehq.kmm.template.di.modules
 
 import co.nimblehq.kmm.template.data.remote.datasources.RemoteDataSource
 import org.koin.dsl.module

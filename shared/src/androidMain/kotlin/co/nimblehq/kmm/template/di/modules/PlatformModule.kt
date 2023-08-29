@@ -1,4 +1,4 @@
-package co.nimblehq.kmm.template.di.module
+package co.nimblehq.kmm.template.di.modules
 
 import io.ktor.client.engine.android.Android
 import org.koin.core.module.Module

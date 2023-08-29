@@ -1,6 +1,6 @@
 package co.nimblehq.kmm.template.util
 
-import co.nimblehq.kmm.template.data.remote.model.responses.Response
+import co.nimblehq.kmm.template.data.remote.models.responses.Response
 import co.nimblehq.kmm.template.domain.models.Model
 
 object Fake {
