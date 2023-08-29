@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:sample/android/src/main/java/co/nimblehq/kmm/template/ui/navigation/AppDestination.kt
-package co.nimblehq.kmm.template.ui.navigation
-========
 package co.nimblehq.kmm.template.ui
->>>>>>>> d73b0aa ([Chore] Generate & update sample project):sample/android/src/main/java/co/nimblehq/kmm/template/ui/AppDestination.kt
 
 import androidx.navigation.*
 
