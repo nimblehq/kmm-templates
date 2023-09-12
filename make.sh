@@ -98,9 +98,8 @@ if ! [[ $minimum_ios_version =~ $version_regex ]]; then
     minimum_ios_version="14.0"
 fi
 
+# Generate iOS module
 sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
-rm -rf make_ios.sh
-rm -rf make.sh
 
 # =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
 # TODO: Fully generate the KMM project later
@@ -111,5 +110,12 @@ rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
     --exclude 'make.sh' \
-    --exclude './sample' \
+    --exclude 'make_ios.sh' \
+    --exclude '/sample' \
     ./ sample/
+
+# Reset all git submodules
+cd ios
+git add .
+git reset --hard
+cd ..
