@@ -9,6 +9,8 @@ object Plugins {
 
     const val IOS_COCOAPODS = "native.cocoapods"
 
+    const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
+    const val KOTLIN_PARCELIZE = "kotlin-parcelize"
     const val KOTLIN_SERIALIZATION = "plugin.serialization"
     const val KOTLINX_SERIALIZATION = "kotlinx-serialization"
     const val KOVER = "org.jetbrains.kotlinx.kover"

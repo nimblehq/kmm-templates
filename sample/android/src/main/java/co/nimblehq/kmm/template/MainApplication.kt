@@ -1,19 +1,28 @@
 package co.nimblehq.kmm.template
 
 import android.app.Application
-import co.nimblehq.kmm.template.di.androidViewModelModule
-import co.nimblehq.kmm.template.util.LogUtil
 import co.nimblehq.kmm.template.di.initKoin
+import co.nimblehq.kmm.template.di.modules.appModule
+import co.nimblehq.kmm.template.di.modules.viewModelModule
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import timber.log.Timber
 
 class MainApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        LogUtil.setUpLogging()
         initKoin {
+            androidLogger()
             androidContext(applicationContext)
-            modules(androidViewModelModule)
+            modules(appModule + viewModelModule)
+        }
+        setupLogging()
+    }
+
+    private fun setupLogging() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
         }
     }
 }

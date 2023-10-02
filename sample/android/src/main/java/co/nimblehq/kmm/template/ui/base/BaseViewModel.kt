@@ -1,12 +1,13 @@
 package co.nimblehq.kmm.template.ui.base
 
-import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.nimblehq.kmm.template.lib.IsLoading
+import co.nimblehq.kmm.template.ui.AppDestination
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import co.nimblehq.kmm.template.lib.IsLoading
-import co.nimblehq.kmm.template.ui.navigation.AppDestination
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 @Suppress("PropertyName")
 abstract class BaseViewModel : ViewModel() {
@@ -16,8 +17,8 @@ abstract class BaseViewModel : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<IsLoading> = _isLoading
 
-    protected val _error = MutableStateFlow<Throwable?>(null)
-    val error: StateFlow<Throwable?> = _error
+    protected val _error = MutableSharedFlow<Throwable>()
+    val error: SharedFlow<Throwable> = _error
 
     protected val _navigator = MutableSharedFlow<AppDestination>()
     val navigator: SharedFlow<AppDestination> = _navigator
@@ -42,11 +43,12 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
+    protected fun launch(context: CoroutineContext = EmptyCoroutineContext, job: suspend () -> Unit) =
+        viewModelScope.launch(context) {
+            job.invoke()
+        }
+
     protected fun <T> Flow<T>.injectLoading(): Flow<T> = this
         .onStart { showLoading() }
         .onCompletion { hideLoading() }
-
-    fun clearError() {
-        viewModelScope.launch { _error.emit(null) }
-    }
 }

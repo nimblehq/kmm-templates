@@ -1,15 +1,8 @@
-@file:Suppress("MatchingDeclarationName")
 package co.nimblehq.kmm.template.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 @Composable
 fun ComposeTheme(
@@ -21,26 +14,11 @@ fun ComposeTheme(
     } else {
         LightColorPalette
     }
-    val dimensions = LocalAppDimensions.current
-    val styles = LocalAppStyles.current
-
-    val typography = Typography(
-        body1 = TextStyle(
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.Normal,
-            fontSize = 16.sp
-        )
-    )
-    val shapes = Shapes(
-        small = RoundedCornerShape(4.dp),
-        medium = RoundedCornerShape(4.dp),
-        large = RoundedCornerShape(0.dp)
-    )
+    val typography = LocalAppTypography.current
+    val shapes = LocalAppShapes.current
 
     CompositionLocalProvider(
-        LocalColors provides colors,
-        LocalAppDimensions provides dimensions,
-        LocalAppStyles provides styles
+        LocalAppColors provides colors
     ) {
         MaterialTheme(
             colors = colors.themeColors,
@@ -60,17 +38,17 @@ object AppTheme {
     val colors: AppColors
         @Composable
         @ReadOnlyComposable
-        get() = LocalColors.current
+        get() = LocalAppColors.current
 
     val typography: Typography
         @Composable
         @ReadOnlyComposable
-        get() = MaterialTheme.typography
+        get() = LocalAppTypography.current
 
     val shapes: Shapes
         @Composable
         @ReadOnlyComposable
-        get() = MaterialTheme.shapes
+        get() = LocalAppShapes.current
 
     val dimensions: AppDimensions
         @Composable
