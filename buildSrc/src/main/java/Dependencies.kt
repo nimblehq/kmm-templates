@@ -52,6 +52,13 @@ object Dependencies {
         const val COMMON_KTX = "com.github.nimblehq:android-common-ktx:${Versions.COMMON_KTX}"
     }
 
+    object Moko {
+        const val RESOURCES_GENERATOR = "dev.icerock.moko:resources-generator:${Versions.MOKO_RESOURCES}"
+        const val RESOURCES = "dev.icerock.moko:resources:${Versions.MOKO_RESOURCES}"
+        const val RESOURCES_COMPOSE = "dev.icerock.moko:resources-compose:${Versions.MOKO_RESOURCES}"
+        const val GRAPHICS = "dev.icerock.moko:graphics:${Versions.MOKO_GRAPHICS}"
+    }
+
     object Test {
         const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4"
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLIN_COROUTINES}"
@@ -65,6 +72,8 @@ object Dependencies {
         const val MOCKATIVE_PROCESSOR = "io.mockative:mockative-processor:${Versions.MOCKATIVE}"
         const val MOCKK = "io.mockk:mockk:${Versions.MOCKK}"
         const val MOCKK_ANDROID = "io.mockk:mockk-android:${Versions.MOCKK}"
+
+        const val MOKO_RESOURCES_TEST = "dev.icerock.moko:resources-test:${Versions.MOKO_RESOURCES}"
 
         const val ROBOLECTRIC = "org.robolectric:robolectric:${Versions.ROBOLECTRIC}"
 

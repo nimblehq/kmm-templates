@@ -66,7 +66,7 @@ kotlin {
 
                 with(Dependencies.Moko) {
                     api(RESOURCES)
-                    // api(RESOURCES_COMPOSE) FIXME: Cannot build the shared module with this dependency
+                    api(RESOURCES_COMPOSE) FIXME: Cannot build the shared module with this dependency
                 }
             }
         }
