@@ -38,6 +38,11 @@ cd ios
 
 echo "=> Removing unnecessary files and folders"
 rm -rf {PROJECT_NAME}/sources/data
+rm -rf ${project_name}
+rm -rf ${project_name}.xcodeproj
+rm -rf ${project_name}.xcworkspace
+rm -rf ${project_name}KIFUITests
+rm -rf ${project_name}Tests
 
 # Bypass this bug in iOS Template: https://github.com/nimblehq/ios-templates/issues/307
 rm -f {PROJECT_NAME}KIFUITests/Sources/Specs/Application/ApplicationSpec.swift

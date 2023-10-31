@@ -1,7 +1,6 @@
 #!/bin/sh
 set -e
 
-# =====GENERATE IOS MODULE=====
 # Script inspired by https://gist.github.com/szeidner/613fe4652fc86f083cefa21879d5522b
 
 readonly PROGNAME=$(basename $0)
@@ -98,18 +97,32 @@ if ! [[ $minimum_ios_version =~ $version_regex ]]; then
     minimum_ios_version="14.0"
 fi
 
-sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
-rm -rf make_ios.sh
-rm -rf make.sh
+# Reset all git submodules changes
+cd ios
+git add .
+git reset --hard
+cd ..
+cd android
+git add .
+git reset --hard
+cd ..
 
-# =====GENERATE ANDROID AND SHARED MODULES + REST OF COMPONENTS=====
-# TODO: Fully generate the KMM project later
-#
-# This is the initial script to generate the KMM project:
-# - Clone all project files to the "sample" directory
+# Generate iOS module
+sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_name} -iv ${minimum_ios_version}
+
+# Generate Android module
+sh make_android.sh  -b ${bundle_id_production} -n ${project_name}
+
+# Clone all project files to the "sample" directory
+echo "=> Clone all project files to the "sample" directory"
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
     --exclude 'make.sh' \
-    --exclude './sample' \
+    --exclude 'make_android.sh' \
+    --exclude 'make_ios.sh' \
+    --exclude '/custom' \
+    --exclude '/android' \
+    --exclude '/sample' \
     ./ sample/
+rsync -av ./android/sample/app/ sample/android/

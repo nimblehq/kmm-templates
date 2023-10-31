@@ -1,62 +1,23 @@
-object Versions {
-    const val ANDROID_COMPILE_SDK_VERSION = 33
-    const val ANDROID_MIN_SDK_VERSION = 24
-    const val ANDROID_TARGET_SDK_VERSION = 33
-    const val ANDROID_VERSION_CODE = 1
-    const val ANDROID_VERSION_NAME = "1.0.0"
-    const val ANDROIDX_ACTIVITY_COMPOSE = "1.7.1"
-
-    const val BUILD_KONFIG = "0.13.3"
-
-    const val COMPOSE = "1.4.3"
-    const val COMPOSE_COMPILER = "1.4.7"
-    const val COMPOSE_NAVIGATION = "2.6.0"
-
-    const val DETEKT = "1.23.0"
-
-    const val GRADLE = "8.0.2"
-
-    const val JUNIT = "4.13.2"
-
-    const val KOIN = "3.3.2"
-    const val KOIN_ANDROID = "3.3.2"
-    const val KOIN_ANDROIDX_COMPOSE = "3.4.1"
-    const val KOTLIN = "1.8.21"
-    const val KOTLIN_COROUTINES = "1.7.3"
-    const val KOTEST = "5.5.4"
-    const val KOTLINX_RESOURCES = "0.2.4"
-    const val KOVER = "0.7.3"
-    const val KSP = "1.8.21-1.0.11"
-    const val KTOR = "2.1.1"
-
-    const val MOCKATIVE = "1.3.0"
-    const val MOCKK = "1.13.3"
-
-    const val NAPIER = "2.6.1"
-
-    const val ROBOLECTRIC = "4.9.1"
-
-    const val TIMBER = "5.0.1"
-    const val TURBINE = "0.12.1"
-}
-
 object Dependencies {
 
     object AndroidX {
-        const val ACTIVITY_COMPOSE = "androidx.activity:activity-compose:${Versions.ANDROIDX_ACTIVITY_COMPOSE}"
+        const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
+        const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
+        const val LIFECYCLE_RUNTIME_COMPOSE = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.LIFECYCLE}"
+
+        const val DATASTORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATASTORE_PREFERENCES}"
+        const val SECURITY_CRYPTO = "androidx.security:security-crypto:${Versions.SECURITY_CRYPTO}"
     }
 
     object Compose {
-        const val FOUNDATION = "androidx.compose.foundation:foundation:${Versions.COMPOSE}"
-
-        const val MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE}"
-
+        const val BOM = "androidx.compose:compose-bom:${Versions.COMPOSE_BOM}"
+        const val UI = "androidx.compose.ui:ui"
+        const val UI_GRAPHICS = "androidx.compose.ui:ui-graphics"
+        const val UI_TOOLING = "androidx.compose.ui:ui-tooling"
+        const val MATERIAL = "androidx.compose.material:material"
         const val NAVIGATION = "androidx.navigation:navigation-compose:${Versions.COMPOSE_NAVIGATION}"
 
-        const val UI = "androidx.compose.ui:ui:${Versions.COMPOSE}"
-        const val UI_GRAPHICS = "androidx.compose.ui:ui-graphics:${Versions.COMPOSE}"
-        const val UI_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
-        const val UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
+        const val ACCOMPANIST_PERMISSIONS = "com.google.accompanist:accompanist-permissions:${Versions.ACCOMPANIST}"
     }
 
     object Koin {
@@ -87,14 +48,17 @@ object Dependencies {
         const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
     }
 
+    object Util {
+        const val COMMON_KTX = "com.github.nimblehq:android-common-ktx:${Versions.COMMON_KTX}"
+    }
+
     object Test {
-        const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4:${Versions.COMPOSE}"
-        const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest:${Versions.COMPOSE}"
+        const val COMPOSE_UI_TEST_JUNIT = "androidx.compose.ui:ui-test-junit4"
         const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.KOTLIN_COROUTINES}"
 
         const val JUNIT = "junit:junit:${Versions.JUNIT}"
 
-        const val KOTEST_ASSERTIONS = "io.kotest:kotest-assertions-core:${Versions.KOTEST}"
+        const val KOTEST = "io.kotest:kotest-assertions-core:${Versions.KOTEST}"
         const val KOTLINX_RESOURCES = "com.goncalossilva:resources:${Versions.KOTLINX_RESOURCES}"
 
         const val MOCKATIVE = "io.mockative:mockative:${Versions.MOCKATIVE}"

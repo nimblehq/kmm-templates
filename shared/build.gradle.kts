@@ -67,7 +67,7 @@ kotlin {
                 implementation(kotlin("test"))
                 with(Dependencies.Test) {
                     implementation(COROUTINES)
-                    implementation(KOTEST_ASSERTIONS)
+                    implementation(KOTEST)
                     implementation(KOTLINX_RESOURCES)
                     implementation(MOCKATIVE)
                     implementation(TURBINE)
@@ -114,9 +114,9 @@ ksp {
 
 android {
     namespace = "co.nimblehq.kmm.template"
-    compileSdk = Versions.ANDROID_COMPILE_SDK_VERSION
+    compileSdk = Versions.ANDROID_COMPILE_SDK
     defaultConfig {
-        minSdk = Versions.ANDROID_MIN_SDK_VERSION
+        minSdk = Versions.ANDROID_MIN_SDK
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
