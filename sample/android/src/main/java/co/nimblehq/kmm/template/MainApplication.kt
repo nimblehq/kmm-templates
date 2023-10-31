@@ -1,6 +1,7 @@
 package co.nimblehq.kmm.template
 
 import android.app.Application
+import co.nimblehq.common.extensions.BuildConfig
 import co.nimblehq.kmm.template.di.initKoin
 import co.nimblehq.kmm.template.di.modules.appModule
 import co.nimblehq.kmm.template.di.modules.viewModelModule
