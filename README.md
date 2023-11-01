@@ -29,13 +29,17 @@ Follow these steps to set up a new project from the template:
 
 3. Generate the new project by running the following command:
 
+    `$ ./make.sh --bundle-id [BUNDLE_ID] --bundle-id-staging [BUNDLE_ID_STAGING] --project-name [PROJECT_NAME] --ios-version [IOS_VERSION]`
+
+    For example,
+
     `$ ./make.sh --bundle-id co.nimblehq.kmm.template --bundle-id-staging co.nimblehq.kmm.template.staging --project-name sample --ios-version 14.0`
 
     To skip CI/CD service generating from iOS script, export this CI env:
 
     `$ export CI=true`
 
-The generated project is in the `/sample` folder and ready to build, run, and test 🎉
+The generated project is in the `[PROJECT_NAME]` folder (such as `/sample`) and ready to build, run, and test 🎉
 
 ## Contributing
 

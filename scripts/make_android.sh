@@ -37,27 +37,27 @@ kscript scripts/new_project.kts package-name=${bundle_id} app-name=${project_nam
 package_path="${bundle_id//.//}"
 
 # Correct dependencies
-sed -i '' 's/Modules.DATA/Modules.SHARED/' sample/app/build.gradle.kts
-sed -i '' "/implementation(project(Modules.DOMAIN))*/d" sample/app/build.gradle.kts
-sed -i '' "/kover(project(Modules.DOMAIN))*/d" sample/app/build.gradle.kts
+sed -i '' 's/Modules.DATA/Modules.SHARED/' $project_name/app/build.gradle.kts
+sed -i '' "/implementation(project(Modules.DOMAIN))*/d" $project_name/app/build.gradle.kts
+sed -i '' "/kover(project(Modules.DOMAIN))*/d" $project_name/app/build.gradle.kts
 
 # Correct imports
-sed -i '' 's/import '$bundle_id'.data.di.initKoin/import '$bundle_id'.di.initKoin/' sample/app/src/main/java/$package_path/MainApplication.kt
+sed -i '' 's/import '$bundle_id'.data.di.initKoin/import '$bundle_id'.di.initKoin/' $project_name/app/src/main/java/$package_path/MainApplication.kt
 
 # Correct error mapping
-sed -i '' 's/is ApiException -> error?.message/is ApiException -> message/' sample/app/src/main/java/$package_path/ui/ErrorMapping.kt
+sed -i '' 's/is ApiException -> error?.message/is ApiException -> message/' $project_name/app/src/main/java/$package_path/ui/ErrorMapping.kt
 
 # Remove unnecessary definition of BASE_API_URL
-sed -i '' "/buildConfigField(\"String\", \"BASE_API_URL\"*/d" sample/app/build.gradle.kts
-sed -i '' "/import $bundle_id.BuildConfig*/d" sample/app/src/main/java/$package_path/di/modules/AppModule.kt
-sed -i '' "/import $bundle_id.data.di.modules.BASE_API_URL*/d" sample/app/src/main/java/$package_path/di/modules/AppModule.kt
-sed -i '' "/import org.koin.core.qualifier.named*/d" sample/app/src/main/java/$package_path/di/modules/AppModule.kt
-sed -i '' "/    single(named(BASE_API_URL)) {\n*/d" sample/app/src/main/java/$package_path/di/modules/AppModule.kt
-sed -i '' "/        BuildConfig.BASE_API_URL\n*/d" sample/app/src/main/java/$package_path/di/modules/AppModule.kt
-sed -i '' "/    }\n*/d" sample/app/src/main/java/$package_path/di/modules/AppModule.kt
+sed -i '' "/buildConfigField(\"String\", \"BASE_API_URL\"*/d" $project_name/app/build.gradle.kts
+sed -i '' "/import $bundle_id.BuildConfig*/d" $project_name/app/src/main/java/$package_path/di/modules/AppModule.kt
+sed -i '' "/import $bundle_id.data.di.modules.BASE_API_URL*/d" $project_name/app/src/main/java/$package_path/di/modules/AppModule.kt
+sed -i '' "/import org.koin.core.qualifier.named*/d" $project_name/app/src/main/java/$package_path/di/modules/AppModule.kt
+sed -i '' "/    single(named(BASE_API_URL)) {\n*/d" $project_name/app/src/main/java/$package_path/di/modules/AppModule.kt
+sed -i '' "/        BuildConfig.BASE_API_URL\n*/d" $project_name/app/src/main/java/$package_path/di/modules/AppModule.kt
+sed -i '' "/    }\n*/d" $project_name/app/src/main/java/$package_path/di/modules/AppModule.kt
 
 # Overwrite custom files
-rsync -av ../custom/android/ sample/app/
+rsync -av ../custom/android/ $project_name/app/
 
 # Overwrite the Kover config for KMM
 perl -i -p0e 's/koverReport (.|\n)*}$/koverReport {\
@@ -84,6 +84,6 @@ perl -i -p0e 's/koverReport (.|\n)*}$/koverReport {\
             }\
         }\
     }\
-}/g' sample/app/build.gradle.kts
+}/g' $project_name/app/build.gradle.kts
 
 cd ..

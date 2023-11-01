@@ -113,8 +113,8 @@ sh scripts/make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${
 # Generate Android module
 sh scripts/make_android.sh  -b ${bundle_id_production} -n ${project_name}
 
-# Clone all project files to the "sample" directory
-echo "=> Clone all project files to the "sample" directory"
+# Clone all project files to the $project_name directory
+echo "=> Clone all project files to the '$project_name' directory"
 rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
@@ -124,8 +124,9 @@ rsync -av \
     --exclude '/android' \
     --exclude '/shared' \
     --exclude '/sample' \
-    ./ sample/
-rsync -av ./android/sample/app/ sample/android/
+    --exclude '/'$project_name \
+    ./ $project_name/
+rsync -av ./android/$project_name/app/ $project_name/android/
 
 # Generate Shared module
 kscript scripts/make_shared.kts package-name=${bundle_id_production} app-name=${project_name}
