@@ -17,11 +17,11 @@ val getVersionCode: () -> Int = {
 }
 
 android {
-    namespace = "co.nimblehq.kmm.template"
+    namespace = "co.nimblehq.kmm.sample"
     compileSdk = Versions.ANDROID_COMPILE_SDK
 
     defaultConfig {
-        applicationId = "co.nimblehq.kmm.template"
+        applicationId = "co.nimblehq.kmm.sample"
         minSdk = Versions.ANDROID_MIN_SDK
         targetSdk = Versions.ANDROID_TARGET_SDK
         versionCode = getVersionCode()

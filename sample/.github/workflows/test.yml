@@ -47,7 +47,7 @@ jobs:
         run: rm -rf sample
 
       - name: Generate the new sample project
-        run: ./make.sh --bundle-id co.nimblehq.kmm.template --bundle-id-staging co.nimblehq.kmm.template.staging --project-name sample --ios-version 14.0
+        run: ./make.sh --bundle-id co.nimblehq.kmm.sample --bundle-id-staging co.nimblehq.kmm.sample.staging --project-name sample --ios-version 14.0
 
       - name: Restore the previous ArkanaKeys's keys
         run: |
