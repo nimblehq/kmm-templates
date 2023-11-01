@@ -1,24 +1,19 @@
 import java.io.File
-import java.util.Properties
 
 object NewProject {
 
     private const val DELIMITER_ARGUMENT = "="
 
     private const val KEY_APP_NAME = "app-name"
-    private const val KEY_DESTINATION = "destination"
     private const val KEY_PACKAGE_NAME = "package-name"
-
-    private const val PATTERN_APP = "^([A-Z][a-zA-Z0-9\\s]*)|([a-z][a-z0-9-]*)$"
-    private const val PATTERN_PACKAGE = "^[a-z]+(\\.[a-z][a-z0-9]*)+$"
 
     private const val SCRIPTS_FOLDER_NAME = "scripts"
     private const val SEPARATOR_DOT = "."
     private const val SEPARATOR_MINUS = "-"
     private const val SEPARATOR_SPACE = " "
 
-    private const val TEMPLATE_APP_NAME = "Template Compose"
-    private const val TEMPLATE_PACKAGE_NAME = "co.nimblehq.template.compose"
+    private const val TEMPLATE_APP_NAME = "KMM_Template"
+    private const val TEMPLATE_PACKAGE_NAME = "co.nimblehq.kmm.template"
 
     private val modules = listOf("shared")
 
@@ -27,23 +22,18 @@ object NewProject {
     private var appName: String = ""
         set(value) {
             field = if (value.contains(SEPARATOR_MINUS)) {
-                projectFolderName = value
+                projectPath = value
                 value.replace(SEPARATOR_MINUS, SEPARATOR_SPACE).uppercaseEveryFirstCharacter()
             } else {
                 value.uppercaseEveryFirstCharacter().also {
-                    projectFolderName = it.getStringWithoutSpace()
+                    projectPath = it.getStringWithoutSpace()
                 }
             }
         }
 
     private var packageName = ""
 
-    private var destination = rootPath
-
-    private var projectFolderName: String = ""
-
-    private val projectPath: String
-        get() = destination + projectFolderName
+    private var projectPath: String = ""
 
     private val rootPath: String
         get() = System.getProperty("user.dir").let { userDir ->
@@ -61,6 +51,7 @@ object NewProject {
         get() = TEMPLATE_APP_NAME
 
     fun generate(args: Array<String>) {
+        handleArguments(args)
         initializeNewProjectFolder()
         renamePackageNameFolders()
         renamePackageNameWithinFiles()
@@ -84,9 +75,9 @@ object NewProject {
 
     private fun initializeNewProjectFolder() {
         showMessage("=> 🐢 Initializing new project...")
-        copyFiles(fromPath = rootPath + "shared", toPath = projectPath)
-        // Set gradlew file as executable, because copying files from one folder to another doesn't copy file permissions correctly (= read, write & execute).
-        File(projectPath + fileSeparator + "gradlew")?.setExecutable(true)
+        modules.forEach { module ->
+            copyFiles(fromPath = rootPath + module, toPath = projectPath + fileSeparator + module)
+        }
     }
 
     private fun renamePackageNameFolders() {
@@ -96,33 +87,35 @@ object NewProject {
             File(srcPath)
                 .walk()
                 .maxDepth(2)
-                .filter { it.isDirectory && it.name == "java" }
-                .forEach { javaDirectory ->
+                .filter { it.isDirectory }
+                .forEach { directory ->
                     val oldDirectory = File(
-                        javaDirectory, templatePackageName.replace(
+                        directory, templatePackageName.replace(
                             oldValue = SEPARATOR_DOT,
                             newValue = fileSeparator
                         )
                     )
-                    val newDirectory = File(
-                        javaDirectory, packageName.replace(
-                            oldValue = SEPARATOR_DOT,
-                            newValue = fileSeparator
+                    if (oldDirectory.exists()) {
+                        val newDirectory = File(
+                            directory, packageName.replace(
+                                oldValue = SEPARATOR_DOT,
+                                newValue = fileSeparator
+                            )
                         )
-                    )
 
-                    val tempDirectory = File(javaDirectory, "temp_directory")
-                    copyFiles(
-                        fromPath = oldDirectory.absolutePath,
-                        toPath = tempDirectory.absolutePath
-                    )
-                    oldDirectory.parentFile?.parentFile?.deleteRecursively()
-                    newDirectory.mkdirs()
-                    copyFiles(
-                        fromPath = tempDirectory.absolutePath,
-                        toPath = newDirectory.absolutePath
-                    )
-                    tempDirectory.deleteRecursively()
+                        val tempDirectory = File(directory, "temp_directory")
+                        copyFiles(
+                            fromPath = oldDirectory.absolutePath,
+                            toPath = tempDirectory.absolutePath
+                        )
+                        oldDirectory.parentFile?.parentFile?.deleteRecursively()
+                        newDirectory.mkdirs()
+                        copyFiles(
+                            fromPath = tempDirectory.absolutePath,
+                            toPath = newDirectory.absolutePath
+                        )
+                        tempDirectory.deleteRecursively()
+                    }
                 }
         }
     }
@@ -201,7 +194,7 @@ object NewProject {
     }
 
     private fun exitWithError(exitValue: Int = 0) {
-        if (projectFolderName.isNotBlank()) {
+        if (projectPath.isNotBlank()) {
             val file = File(projectPath)
             if (file.exists()) {
                 file.deleteRecursively()
