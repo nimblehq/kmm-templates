@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "KMM_Template"
+rootProject.name = "Sample"
 include(":android")
 include(":shared")

@@ -11,6 +11,7 @@ TODO
 ### Prerequisites
 
 - [JDK](https://www.oracle.com/java/technologies/javase-downloads.html): Java 17
+- [Kscript](https://github.com/holgerbrandl/kscript) v4.0.3 or later.
 - [Android Studio](https://developer.android.com/studio) with [Kotlin Multiplatform Mobile plugin](https://kotlinlang.org/docs/multiplatform-mobile-plugin-releases.html)
 - [Xcode](https://apps.apple.com/us/app/xcode/id497799835) 13.3+
 

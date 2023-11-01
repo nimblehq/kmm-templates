@@ -113,7 +113,7 @@ ksp {
 }
 
 android {
-    namespace = "co.nimblehq.kmm.template"
+    namespace = "co.nimblehq.kmm.sample"
     compileSdk = Versions.ANDROID_COMPILE_SDK
     defaultConfig {
         minSdk = Versions.ANDROID_MIN_SDK
@@ -126,7 +126,7 @@ android {
 
 val buildKonfigProperties = loadProperties("$rootDir/buildKonfig.properties")
 buildkonfig {
-    packageName = "co.nimblehq.kmm.template"
+    packageName = "co.nimblehq.kmm.sample"
 
     // Default for Flavors.STAGING
     defaultConfigs {
