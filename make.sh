@@ -113,6 +113,9 @@ sh make_ios.sh  -b ${bundle_id_production} -s ${bundle_id_staging} -n ${project_
 # Generate Android module
 sh make_android.sh  -b ${bundle_id_production} -n ${project_name}
 
+# Generate Shared module
+kscript scripts/make_shared.kts package-name=${bundle_id_production} app-name=${project_name} destination=sample
+
 # Clone all project files to the "sample" directory
 echo "=> Clone all project files to the "sample" directory"
 rsync -av \
