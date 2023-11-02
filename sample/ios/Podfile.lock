@@ -57,11 +57,11 @@ PODS:
   - KIF/IdentifierTests (3.8.9):
     - KIF/Core
   - Kingfisher (7.10.0)
-  - nanopb (2.30909.0):
-    - nanopb/decode (= 2.30909.0)
-    - nanopb/encode (= 2.30909.0)
-  - nanopb/decode (2.30909.0)
-  - nanopb/encode (2.30909.0)
+  - nanopb (2.30909.1):
+    - nanopb/decode (= 2.30909.1)
+    - nanopb/encode (= 2.30909.1)
+  - nanopb/decode (2.30909.1)
+  - nanopb/encode (2.30909.1)
   - Nimble (13.0.0)
   - NimbleExtension (0.1.0)
   - PromisesObjC (2.3.1)
@@ -196,7 +196,7 @@ SPEC CHECKSUMS:
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   KIF: 7660c626b0f2d4562533590960db70a36d640558
   Kingfisher: a18f05d3b6d37d8650ee4a3e61d57a28fc6207f6
-  nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   Nimble: 97d90931cca412a23224ff29e258809f75c258f7
   NimbleExtension: acad4290f27afd4241b1ea20f8597889085e2ce7
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
