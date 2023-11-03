@@ -11,6 +11,7 @@ plugins {
     id(Plugins.KOVER)
     id(Plugins.KSP)
     id(Plugins.BUILD_KONFIG)
+    id(Plugins.MOKO)
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
@@ -36,6 +37,8 @@ kotlin {
         podfile = project.file("../ios/Podfile")
         framework {
             baseName = "shared"
+            export(Dependencies.Moko.RESOURCES)
+            export(Dependencies.Moko.GRAPHICS)
         }
 
         xcodeConfigurationToNativeBuildType["Debug Staging"] = NativeBuildType.DEBUG
@@ -60,6 +63,11 @@ kotlin {
                 }
 
                 implementation(Dependencies.Log.NAPIER)
+
+                with(Dependencies.Moko) {
+                    api(RESOURCES)
+                    api(RESOURCES_COMPOSE) FIXME: Cannot build the shared module with this dependency
+                }
             }
         }
         val commonTest by getting {
@@ -144,4 +152,9 @@ buildkonfig {
             buildKonfigProperties.getProperty("PRODUCTION_BASE_URL")
         )
     }
+}
+
+multiplatformResources {
+    multiplatformResourcesPackage = "co.nimblehq.kmm.template.sharedres"
+    multiplatformResourcesClassName = "SharedRes"
 }

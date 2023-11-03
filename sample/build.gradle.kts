@@ -11,6 +11,12 @@ plugins {
     kotlin(Plugins.KOTLIN_SERIALIZATION) version Versions.KOTLIN
 }
 
+buildscript {
+    dependencies {
+        classpath(Dependencies.Moko.RESOURCES_GENERATOR)
+    }
+}
+
 detekt {
     toolVersion = Versions.DETEKT
     config.setFrom("detekt.yml")

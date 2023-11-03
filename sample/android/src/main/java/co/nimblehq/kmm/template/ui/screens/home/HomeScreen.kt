@@ -11,7 +11,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.nimblehq.kmm.template.R
+import co.nimblehq.kmm.template.Strings
 import co.nimblehq.kmm.template.extensions.collectAsEffect
+import co.nimblehq.kmm.template.getPlatform
+import co.nimblehq.kmm.template.sharedres.SharedRes
 import co.nimblehq.kmm.template.ui.AppDestination
 import co.nimblehq.kmm.template.ui.models.UiModel
 import co.nimblehq.kmm.template.ui.showToast
@@ -32,7 +35,10 @@ fun HomeScreen(
     val uiModels: List<UiModel> by viewModel.uiModels.collectAsStateWithLifecycle()
 
     HomeScreenContent(
-        title = stringResource(id = R.string.app_name),
+        title = Strings(LocalContext.current).get(
+            id = SharedRes.strings.greeting,
+            args = listOf(getPlatform().name)
+        ),
         uiModels = uiModels
     )
 }
@@ -40,7 +46,7 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenContent(
     title: String,
-    uiModels: List<UiModel>
+    uiModels: List<UiModel>,
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),

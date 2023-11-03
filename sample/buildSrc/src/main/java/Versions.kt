@@ -38,6 +38,9 @@ object Versions {
     const val MOCKATIVE = "1.3.0"
     const val MOCKK = "1.13.3"
 
+    const val MOKO_RESOURCES = "0.23.0"
+    const val MOKO_GRAPHICS = "0.9.0"
+
     const val NAPIER = "2.6.1"
 
     const val ROBOLECTRIC = "4.9.1"

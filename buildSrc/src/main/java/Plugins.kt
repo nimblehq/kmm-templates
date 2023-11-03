@@ -16,5 +16,7 @@ object Plugins {
     const val KOVER = "org.jetbrains.kotlinx.kover"
     const val KSP = "com.google.devtools.ksp"
 
+    const val MOKO = "dev.icerock.mobile.multiplatform-resources"
+
     const val MULTIPLATFORM = "multiplatform"
 }
