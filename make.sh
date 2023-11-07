@@ -119,6 +119,7 @@ rsync -av \
     --exclude '.git' \
     --exclude '.gitmodules' \
     --exclude 'make.sh' \
+    --exclude 'CONTRIBUTING.md' \
     --exclude '/scripts' \
     --exclude '/custom' \
     --exclude '/android' \

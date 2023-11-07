@@ -12,6 +12,9 @@
 /test/version_tmp/
 /tmp/
 
+# Keystore
+config/release.keystore
+
 signing.properties
 
 # Used by dotenv library to load environment variables.
