@@ -53,8 +53,8 @@ enum Constant {
 
     // MARK: - Project
 
-    static let stagingBundleId = "co.nimblehq.kmm.template.staging"
-    static let productionBundleId = "co.nimblehq.kmm.template"
+    static let stagingBundleId = "co.nimblehq.kmm.sample.staging"
+    static let productionBundleId = "co.nimblehq.kmm.sample"
     static let projectName = "sample"
 
     // MARK: - Symbol
