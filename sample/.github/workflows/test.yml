@@ -1,12 +1,12 @@
 name: Code analysis, test and generate sample project
 on:
   pull_request:
-    types: [ opened, synchronize, reopened, ready_for_review ]
-  push:
-    branches-ignore:
-      - main
-      - develop
-      - 'release/*'
+    types: [ opened, edited, reopened, synchronize ]
+    push:
+      branches-ignore:
+        - main
+        - develop
+        - 'release/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
