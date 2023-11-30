@@ -49,6 +49,9 @@ local.properties
 xcuserdata
 buildKonfig.properties
 
+# Keystore
+config/release.keystore
+
 # iOS
 ios/Pods/
 ios/fastlane/README.md
