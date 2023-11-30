@@ -52,7 +52,7 @@ jobs:
         run: rm -rf sample
 
       - name: Generate the new sample project
-        run: ./make.sh --bundle-id co.nimblehq.kmm.sample --bundle-id-staging co.nimblehq.kmm.sample.staging --project-name sample --ios-version 14.0
+        run: ./make.sh --bundle-id co.nimblehq.kmm.template --bundle-id-staging co.nimblehq.kmm.template.staging --project-name sample --ios-version 14.0
 
       - name: Restore the previous ArkanaKeys's keys
         run: |
@@ -105,8 +105,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Decode buildKonfig properties
-        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
+      - name: Set up the necessary config
+        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
 
       - name: Run Detekt
         run: ./gradlew detekt
@@ -170,9 +170,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Decode buildKonfig properties
+      - name: Set up the necessary config
         working-directory: ./sample
-        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
+        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
 
       - name: Generate KMM frameworks for Cocoapods
         run: |
