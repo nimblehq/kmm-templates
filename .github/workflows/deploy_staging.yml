@@ -34,8 +34,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Decode buildKonfig properties
-        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" | base64 --decode > buildKonfig.properties
+      - name: Set up the necessary config
+        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
 
       - name: Build staging APK
         run: ./gradlew assembleStagingDebug -PversionCode=$GITHUB_RUN_NUMBER

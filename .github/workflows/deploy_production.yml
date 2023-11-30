@@ -34,14 +34,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Decode singing properties
-        run: echo "${{ secrets.ANDROID_SIGNING_PROPERTIES }}" | base64 --decode > signing.properties
-
-      - name: Decode release keystore
-        run: echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" | base64 --decode > config/release.keystore
-
-      - name: Decode buildKonfig properties
-        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" | base64 --decode > buildKonfig.properties
+      - name: Set up the necessary config
+        run: |
+          echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
+          echo "${{ secrets.ANDROID_SIGNING_PROPERTIES }}" > signing.properties
+          echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" | base64 --decode > config/release.keystore
 
       - name: Build production APK
         run: ./gradlew assembleProductionRelease -PversionCode=$GITHUB_RUN_NUMBER
