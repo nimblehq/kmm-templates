@@ -1,0 +1,52 @@
+name: Deploy production app to Firebase App Distribution
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy_android:
+    name: Deploy Android app to Firebase App Distribution
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment: production
+    defaults:
+      run:
+        working-directory: ./sample
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Cache Gradle
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Set up the necessary config
+        run: |
+          echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
+          echo "${{ secrets.ANDROID_SIGNING_PROPERTIES }}" > signing.properties
+          echo "${{ secrets.ANDROID_RELEASE_KEYSTORE }}" | base64 --decode > config/release.keystore
+
+      - name: Build production APK
+        run: ./gradlew assembleProductionRelease -PversionCode=$GITHUB_RUN_NUMBER
+
+      - name: Deploy production to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
+        with:
+          appId: ${{ vars.ANDROID_FIREBASE_APP_ID }}
+          serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREDENTIAL_FILE_CONTENT }}
+          groups: nimble
+          file: sample/android/build/outputs/apk/production/release/android-production-release.apk
