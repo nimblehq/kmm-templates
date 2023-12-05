@@ -1,7 +1,12 @@
 name: Code analysis, test and generate sample project
 on:
   pull_request:
-    types: [ opened, synchronize, reopened, ready_for_review ]
+    types: [ opened, edited, reopened, synchronize ]
+    push:
+      branches-ignore:
+        - main
+        - develop
+        - 'release/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -100,8 +105,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Decode buildKonfig properties
-        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
+      - name: Set up the necessary config
+        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
 
       - name: Run Detekt
         run: ./gradlew detekt
@@ -165,9 +170,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pods-
 
-      - name: Decode buildKonfig properties
+      - name: Set up the necessary config
         working-directory: ./sample
-        run: echo ${{ secrets.BUILD_KONFIG_PROPERTIES }} | base64 --decode > buildKonfig.properties
+        run: echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
 
       - name: Generate KMM frameworks for Cocoapods
         run: |

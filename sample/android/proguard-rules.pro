@@ -60,3 +60,6 @@
 #-keepnames class <1>$$serializer { # -keepnames suffices; class is kept when serializer() is kept.
 #    static <1>$$serializer INSTANCE;
 #}
+
+# Suppress: Missing class org.slf4j.impl.StaticLoggerBinder while running R8
+-dontwarn org.slf4j.impl.StaticLoggerBinder
