@@ -2,6 +2,10 @@ PODS:
   - ArkanaKeys (1.0.0):
     - ArkanaKeysInterfaces (~> 1.0.0)
   - ArkanaKeysInterfaces (1.0.0)
+  - CwlCatchException (2.1.2):
+    - CwlCatchExceptionSupport (~> 2.1.2)
+  - CwlCatchExceptionSupport (2.1.2)
+  - CwlMachBadInstructionHandler (2.1.2)
   - Differentiator (5.0.0)
   - Factory (2.3.1)
   - Firebase/CoreOnly (10.19.0):
@@ -62,7 +66,9 @@ PODS:
     - nanopb/encode (= 2.30909.1)
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
-  - Nimble (13.0.0)
+  - Nimble (13.1.1):
+    - CwlCatchException (~> 2.1.0)
+    - CwlMachBadInstructionHandler (~> 2.1.0)
   - NimbleExtension (0.1.0)
   - PromisesObjC (2.3.1)
   - PromisesSwift (2.3.1):
@@ -129,6 +135,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - CwlCatchException
+    - CwlCatchExceptionSupport
+    - CwlMachBadInstructionHandler
     - Differentiator
     - Factory
     - Firebase
@@ -181,6 +190,9 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   ArkanaKeys: 356555f467c55ae40ba074c1b4d9cb5c38a55f3d
   ArkanaKeysInterfaces: 81d21923368b058e2b6fd932ec96855166ef6d19
+  CwlCatchException: 76542d5ea479c79ce16ddd6e7bc9d42c7ec63300
+  CwlCatchExceptionSupport: 42bf8c5e4e5e663f51100ddfa68caf7cfcf64ab6
+  CwlMachBadInstructionHandler: b982c7e3e44fcfa1c680e8046f6bba35f3476d65
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Factory: 0aaf52d866846f0d50f42442cc39a91b8f6a07e0
   Firebase: 63ce8ece0d43743dc28eacac0c6867a2d7fd5a9d
@@ -197,7 +209,7 @@ SPEC CHECKSUMS:
   KIF: 7660c626b0f2d4562533590960db70a36d640558
   Kingfisher: bc5abe80a8e0144537ef1dd5a0b2621b04f7f439
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
-  Nimble: 97d90931cca412a23224ff29e258809f75c258f7
+  Nimble: b50983fc2f1cc8ce5a718a8c2de4e82ba9930cc5
   NimbleExtension: acad4290f27afd4241b1ea20f8597889085e2ce7
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
