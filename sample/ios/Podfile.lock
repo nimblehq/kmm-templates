@@ -6,6 +6,11 @@ PODS:
     - CwlCatchExceptionSupport (~> 2.1.2)
   - CwlCatchExceptionSupport (2.1.2)
   - CwlMachBadInstructionHandler (2.1.2)
+  - CwlPosixPreconditionTesting (2.1.2)
+  - CwlPreconditionTesting (2.1.2):
+    - CwlCatchException (~> 2.1.2)
+    - CwlMachBadInstructionHandler (~> 2.1.2)
+    - CwlPosixPreconditionTesting (~> 2.1.2)
   - Differentiator (5.0.0)
   - Factory (2.3.1)
   - Firebase/CoreOnly (10.19.0):
@@ -53,22 +58,21 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.12.0)"
   - GoogleUtilities/UserDefaults (7.12.0):
     - GoogleUtilities/Logger
-  - IQKeyboardManagerSwift (6.5.16)
+  - IQKeyboardManagerSwift (7.0.0)
   - KeychainAccess (4.2.2)
   - KIF (3.8.9):
     - KIF/Core (= 3.8.9)
   - KIF/Core (3.8.9)
   - KIF/IdentifierTests (3.8.9):
     - KIF/Core
-  - Kingfisher (7.10.1)
+  - Kingfisher (7.10.2)
   - nanopb (2.30909.1):
     - nanopb/decode (= 2.30909.1)
     - nanopb/encode (= 2.30909.1)
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
-  - Nimble (13.1.1):
-    - CwlCatchException (~> 2.1.0)
-    - CwlMachBadInstructionHandler (~> 2.1.0)
+  - Nimble (13.1.2):
+    - CwlPreconditionTesting (~> 2.1.0)
   - NimbleExtension (0.1.0)
   - PromisesObjC (2.3.1)
   - PromisesSwift (2.3.1):
@@ -102,7 +106,7 @@ PODS:
   - Sourcery (2.1.1):
     - Sourcery/CLI-Only (= 2.1.1)
   - Sourcery/CLI-Only (2.1.1)
-  - SwiftFormat/CLI (0.52.11)
+  - SwiftFormat/CLI (0.53.0)
   - SwiftLint (0.54.0)
   - Wormholy (1.7.0)
   - xcbeautify (0.17.0)
@@ -138,6 +142,8 @@ SPEC REPOS:
     - CwlCatchException
     - CwlCatchExceptionSupport
     - CwlMachBadInstructionHandler
+    - CwlPosixPreconditionTesting
+    - CwlPreconditionTesting
     - Differentiator
     - Factory
     - Firebase
@@ -193,6 +199,8 @@ SPEC CHECKSUMS:
   CwlCatchException: 76542d5ea479c79ce16ddd6e7bc9d42c7ec63300
   CwlCatchExceptionSupport: 42bf8c5e4e5e663f51100ddfa68caf7cfcf64ab6
   CwlMachBadInstructionHandler: b982c7e3e44fcfa1c680e8046f6bba35f3476d65
+  CwlPosixPreconditionTesting: 4011f0660c0be460b088d10bcfdf351c7e036ac4
+  CwlPreconditionTesting: 23ed728f2acc2d774fb59101123c943ce0119107
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Factory: 0aaf52d866846f0d50f42442cc39a91b8f6a07e0
   Firebase: 63ce8ece0d43743dc28eacac0c6867a2d7fd5a9d
@@ -204,12 +212,12 @@ SPEC CHECKSUMS:
   FirebaseSessions: e5f4caa188dc8bc6142abc974355be75b042215e
   GoogleDataTransport: 57c22343ab29bc686febbf7cbb13bad167c2d8fe
   GoogleUtilities: 0759d1a57ebb953965c2dfe0ba4c82e95ccc2e34
-  IQKeyboardManagerSwift: 12d89768845bb77b55cc092ecc2b1f9370f06b76
+  IQKeyboardManagerSwift: bd69f3a49f6ead9cb6ce17723cf0c6c9b948d83e
   KeychainAccess: c0c4f7f38f6fc7bbe58f5702e25f7bd2f65abf51
   KIF: 7660c626b0f2d4562533590960db70a36d640558
-  Kingfisher: bc5abe80a8e0144537ef1dd5a0b2621b04f7f439
+  Kingfisher: 99edc495d3b7607e6425f0d6f6847b2abd6d716d
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
-  Nimble: b50983fc2f1cc8ce5a718a8c2de4e82ba9930cc5
+  Nimble: d733c860d832b324e9779034f12398993c536e7b
   NimbleExtension: acad4290f27afd4241b1ea20f8597889085e2ce7
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
@@ -224,7 +232,7 @@ SPEC CHECKSUMS:
   RxTest: a23f26bb53a5e146a0a69db4f0fa0b69001ce7f4
   SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
   Sourcery: 3a6e2e9bd439caeee302e8150dc712d2f8ef45b3
-  SwiftFormat: 2ca3d0b75754193f0f3ba532291f25ae08dd1e42
+  SwiftFormat: 5c50ccf2c2b178fe5e46cc75e43555b09d72b103
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
   Wormholy: ab1c8c2f02f58587a0941deb0088555ffbf039a1
   xcbeautify: 6e2f57af5c3a86d490376d5758030a8dcc201c1b
