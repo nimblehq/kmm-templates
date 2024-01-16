@@ -47,3 +47,97 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_CREDENTIAL_FILE_CONTENT }}
           groups: nimble
           file: sample/android/build/outputs/apk/staging/debug/android-staging-debug.apk
+
+  deploy_ios_staging:
+    runs-on: macos-latest
+    environment: staging
+    defaults:
+      run:
+        working-directory: ./sample/ios
+    steps:
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cache Gradle
+        uses: actions/cache@v3.3.2
+        with:
+          path: |
+            ~/.gradle/caches/modules-*
+            ~/.gradle/caches/jars-*
+            ~/.gradle/caches/build-cache-*
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Install SSH key - For accessing match repo
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - uses: actions/cache@v3
+        id: bunlderCache
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Bundle install
+        run: bundle install --path vendor/bundle
+
+      - name: Cache Pods
+        uses: actions/cache@v2
+        id: cocoapodCache
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
+      - name: Install Pods Dependencies
+        run: bundle exec pod install
+        shell: bash
+
+      - name: Decode buildKonfig properties
+        run: |
+          cd ..
+          echo "${{ secrets.BUILD_KONFIG_PROPERTIES }}" > buildKonfig.properties
+
+      - name: Paste Google-Info.plist from .secrets
+        run: |
+          mkdir -p sample/Configurations/Plists/GoogleService/Staging
+          echo ${{ secrets.IOS_GOOGLE_INFO_PLIST }} | base64 --decode > ./sample/Configurations/Plists/GoogleService/Staging/GoogleService-Info.plist
+
+      - name: Paste Constants for Fastlane from .secrets
+        run: |
+          mkdir -p fastlane/Constants
+          echo ${{ secrets.IOS_FASTLANE_CONSTANTS }} | base64 --decode > ./fastlane/Constants/Constant.swift
+
+      - name: Generate KMM frameworks for Cocoapods
+        run: |
+          cd ..
+          ./gradlew generateDummyFramework
+
+      - name: Build and Test
+        run: bundle exec fastlane buildAndTest
+
+      - name: Match Ad-hoc
+        run: bundle exec fastlane syncAdHocStagingCodeSigning
+        env:
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASS }}
+
+      - name: Build App and Distribute to Firebase
+        run: bundle exec fastlane buildStagingAndUploadToFirebase
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      - name: Remove Keychain
+        if: ${{ always() }}
+        run: bundle exec fastlane run delete_keychain
+        continue-on-error: true
